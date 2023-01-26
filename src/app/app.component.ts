@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+	selector: 'app-root',
+	standalone: true,
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'naylalabs-angular';
-}
+export class AppComponent {}

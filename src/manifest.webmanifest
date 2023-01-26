@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "name": "",
+    "short_name": "",
+    "description": "",
+    "theme_color": "#ffffff",
+    "background_color": "#fafafa",
+    "display": "standalone",
+    "scope": ".",
+    "start_url": "./pwa",
+    "icons": [
+        {
+          "src": "/assets/img/favicons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "/assets/img/favicons/icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+    ]
+}

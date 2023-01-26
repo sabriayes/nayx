@@ -1,0 +1,6 @@
+export enum AuthEndpoint {
+	SIGN_IN = 'SIGN_IN',
+	SIGN_OUT = 'SIGN_OUT',
+	VERIFY_ACCOUNT = 'VERIFY_ACCOUNT',
+	VERIFY_OTP = 'VERIFY_OTP',
+}
