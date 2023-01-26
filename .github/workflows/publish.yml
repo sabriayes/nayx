@@ -14,15 +14,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build:lib
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ng-dist
           path: dist
-      - name: Install Dependencies
-        run: npm install
-      - name: Build
-        run: npm run build:lib
         
   publish:
     needs: build
