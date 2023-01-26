@@ -1,6 +1,21 @@
 {
 	"name": "naylalabs",
+	"description": "Some useful libraries needed by Naylalabs team to develop Angular app",
 	"version": "0.0.1",
+	"license": "MIT",
+	"author": {
+		"name": "Sabri Ayeş",
+		"email": "sabri@naylalabs.com",
+		"url": "https://github.com/sabriayes"
+	},
+	"homepage": "https://github.com/sabriayes/ng-libs",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sabriayes/ng-libs.git"
+	},
+	"bugs": {
+		"url": "https://github.com/sabriayes/ng-libs/issues"
+	},
 	"peerDependencies": {
 		"@angular/common": "^15.0.0",
 		"@angular/core": "^15.0.0"
