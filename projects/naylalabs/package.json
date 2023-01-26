@@ -1,5 +1,5 @@
 {
-	"name": "naylalabs",
+	"name": "@naylalabs/ng-libs",
 	"description": "Some useful libraries needed by Naylalabs team to develop Angular app",
 	"version": "0.0.1",
 	"license": "MIT",
