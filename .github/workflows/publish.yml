@@ -17,8 +17,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build
-        run: npm run build:lib
-        run: cp .npmrc dist/naylalabs/.npmrc
+        run: |
+          npm run build:lib
+          cp .npmrc dist/naylalabs/.npmrc
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
