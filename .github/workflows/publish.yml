@@ -1,8 +1,8 @@
 name: "🤘 Publish NPM Package"
 
 on:
-  releases:
-    braches: [main]
+  push:
+    branches: [main]
 
 jobs:
   build:
