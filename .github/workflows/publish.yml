@@ -14,6 +14,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ng-dist
+          path: dist
       - name: Install Dependencies
         run: npm install
       - name: Build
@@ -27,6 +32,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ng-dist
       - name: Publish to NPM
         run: |
           cd dist/naylalabs
