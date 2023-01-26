@@ -14,8 +14,6 @@
 		"lint": "ng lint",
 		"lint:fix": "ng lint --fix",
 		"test:integration": "ng test",
-		"test:e2e": "ng e2e",
-		"test:ci": "start-test start:dev :4200 cypress:ci",
 		"husky:install": "husky install"
 	},
 	"private": true,
