@@ -25,11 +25,11 @@ içerir.
 `LOCAL_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
 aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServiceOptions`\
 
-#### Entegrasyon
+### Entegrasyon
 
 ```ts
 /**
- * Temel kullanım örneği. 
+ * Temel entegrasyon örneği. 
  * Konfügurasyon ve jeton saklamak için gereken bağımlıklar 
  * modül içerisinde mevcuttur.
  */
@@ -45,65 +45,30 @@ bootstrapApplication(AppComponent, {
 });
 ```
 
-```ts
-/**
- * Konfigüre edilmiş kullanım örneği. 
- * LOCAL_AUTH_SERVICE_OPTIONS jetonu ile servis ayarları 
- * içeri aktarılır.
- */
-import { importProvidersFrom } from "@angular/core";
-import {
-    AuthEndpoint,
-    LocalAuthenticationModule,
-    LOCAL_AUTH_SERVICE_OPTIONS,
-    LocalAuthenticationServiceOptions,
-} from '@sabriayes/nayx';
-
-const SERVICE_OPTIONS: LocalAuthenticationServiceOptions = {
-    retryLimit: 1,
-    baseURL: 'https://api.backend.com',
-    endpoins: {
-        [AuthEndpoint.SIGN_IN]: 'auth/signin', // POST
-        [AuthEndpoint.SIGN_OUT]: 'auth/signout', // DELETE
-        [AuthEndpoint.VERIFY_ACCOUNT]: 'auth/me', // GET
-    }
-}
-bootstrapApplication(AppComponent, {
-    providers: [
-        {
-            provide: LOCAL_AUTH_SERVICE_OPTIONS,
-            useValue: SERVICE_OPTIONS
-        },
-        importProvidersFrom(
-            LocalAuthenticationModule
-        )
-    ]
-});
-```
-
-#### Temel Kullanım
+### Temel Kullanım
 
 ```ts
 import { Component, inject } from "@angular/core";
-import { LocalAuthService, BasicAuthResponse } from "@sabriayes/nayx";
+import { Router } from "@angular/router";
+import {
+    LocalAuthService, 
+    BasicAuthResponse, 
+    CredentialsWithEmail
+} 
+from "@sabriayes/nayx";
 
 type User = Record<'firstName' | 'lastName', string>;
 type SignInResponse = BasicAuthResponse;
 
 @Component({})
 export class SignInPageComponent {
+    router = inject(Router);
     authService = inject<LocalAuthService<User, SignInResponse>>(LocalAuthService);
 
-    signIn() {
-        const credentials = {
-            _kind: 'username',
-            username: 'sabriayes',
-            password: '**********'
-        };
-        
-        this.signIn(credentials).subscribe((user: User) => {
-            console.log(user);
-        });
+    signIn(creds: CredentialsWithEmail) {
+        this.signIn(creds).subscribe(
+            () => this.router.navigate['/dashbaord']
+        );
     }
 }
 ```
