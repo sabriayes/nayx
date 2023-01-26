@@ -7,7 +7,7 @@ Bu repo **Authentication, Token Storage, Local Storage** işlemleri için
 farklı servisler içermektedir. Entegrasyon ile ilgili bilgileri ve dikkat edilmesi 
 gerekenleri aşağıdaki bölümde bulabilirsiniz.
 
-## 🔒 Local Authentication Service
+## 🔐 Local Authentication Service
 
 👻 `LocalAuthService`\
 📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
@@ -73,33 +73,33 @@ export class SignInPageComponent {
 }
 ```
 
-### OTPAuthenticationService 
-`<OTPAuthService>`
+## 📨 OTP Authentication Service
 
-### AuthTokensService
-`<TokensService>`
+👻 `OTPAuthService`\
+📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
 
-### LocalStorageService
-`<StorageService>`
+## 🔑 Authentication Tokens Service
 
-### MemoryStorageService
-`<StorageService>`
+👻 `TokensService`\
+📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
 
-## Injection Tokens
-You can see all the services in this repository below.
+## 🚛 Local Storage Service
 
-### WINDOW
-`<Window>`
+👻 `StorageService`\
+📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
 
-### LOCAL_STORAGE
-`<Storage>`
+## 💾 Memory Storage Service
 
-## Interceptors
-You can see all the services in this repository below.
+👻 `StorageService`\
+📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
 
-### authInterceptor
 
-## Guards
-You can see all the services in this repository below.
+## 🌏 WINDOW Injection Token
 
-### authGuard
+👻 `Window`\
+📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
+
+## 🚚 Local Storage Injection Token
+
+👻 `Storage`\
+📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
