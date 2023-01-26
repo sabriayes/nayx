@@ -14,13 +14,13 @@ gerekenleri aşağıdaki bölümde bulabilirsiniz.
 
 Kullanıcı adı ve parola temelli basit oturum açma işlemleri için bu servisi 
 kullanın. `.signIn({...})` metodu farklı oturum açma işlemleri farklı arayüzler
-içerir.\
+içerir.
 
-| Tip                      | Arayüz                     |
-|--------------------------|----------------------------|
-| `username - password`    | CredentialsWithUsername    |
-| `email - password`       | CredentialsWithEmail       |
-| `phoneNumner - password` | CredentialsWithPhoneNumber |
+| Tip                        | Arayüz                       |
+|----------------------------|------------------------------|
+| **username - password**    | `CredentialsWithUsername`    |
+| **email - password**       | `CredentialsWithEmail`       |
+| **phoneNumner - password** | `CredentialsWithPhoneNumber` |
 
 `LOCAL_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
 aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServiceOptions`\
