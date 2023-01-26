@@ -29,7 +29,7 @@ type PropertiesType<T> = (keyof T)[];
  * ```
  */
 export function authGuard<T>(
-	to: string[],
+	to: unknown[],
 	props: PropertiesType<T> = [],
 ): AuthGuardReturnType {
 	return function () {
