@@ -40,7 +40,7 @@ jobs:
           name: ng-dist
       - name: Publish to NPM
         run: |
-          cd dist/naylalabs
+          cd naylalabs
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
