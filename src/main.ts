@@ -37,7 +37,7 @@ bootstrapApplication(AppComponent, {
 			provide: LOCAL_AUTH_SERVICE_OPTIONS,
 			useValue: {
 				retryLimit: 1,
-				baseURL: 'https://dev-api-sales-sense-backend.naylalabs.xyz',
+				baseURL: 'https://api.sabriayes.com/',
 				endpoins: {
 					[AuthEndpoint.SIGN_IN]: 'auth', // METHOD: POST
 					[AuthEndpoint.SIGN_OUT]: 'auth', // METHOD: DELETE
