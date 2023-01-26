@@ -17,9 +17,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build
-        run: |
-          npm run build:lib
-          cp .npmrc dist/naylalabs/.npmrc
+        run: npm run build:lib
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
@@ -36,6 +34,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
