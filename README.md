@@ -1,17 +1,16 @@
 # 📚 Nayx
 Naylalabs Web takımının **Angular** uygulamaları geliştirirken sıkça kullandığı
 **Service, Interceptor, Guard, Token** bileşenlerini içerir. 
-Tüm bileşenler **Angular 15** sürümü ile uyumlu olacak şekilde geliştirilmiştir.
+Tüm bileşenler **Angular 15** sürümü ile uyumlu olacak şekilde geliştirilmiştir.\
 
-## Servisler
 Bu repo **Authentication, Token Storage, Local Storage** işlemleri için 
 farklı servisler içermektedir. Entegrasyon ile ilgili bilgileri ve dikkat edilmesi 
 gerekenleri aşağıdaki bölümde bulabilirsiniz.
 
-### 🔒 Local Authentication Service
+## 🔒 Local Authentication Service
 
 👻 `LocalAuthService`\
-📒 [README](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
+📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
 
 Kullanıcı adı ve parola temelli basit oturum açma işlemleri için bu servisi 
 kullanın. `.signIn({...})` metodu farklı oturum açma işlemleri farklı arayüzler
