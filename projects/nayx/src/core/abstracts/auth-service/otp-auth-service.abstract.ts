@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 import {
-	SigninCredentials,
 	OTPAuthResponse,
 	BasicAuthResponse,
+	OTPSigninCredentials,
 } from '@nayx/core/models';
 import { AuthService } from '@nayx/core/abstracts/auth-service';
 
@@ -11,6 +11,6 @@ export abstract class OTPAuthService<
 	R extends OTPAuthResponse,
 	V extends BasicAuthResponse,
 > extends AuthService<T> {
-	abstract signIn(credentials: SigninCredentials): Observable<R>;
+	abstract signIn(credentials: OTPSigninCredentials): Observable<R>;
 	abstract verifyOTP(token: string): Observable<V>;
 }

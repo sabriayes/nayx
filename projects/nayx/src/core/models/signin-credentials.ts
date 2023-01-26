@@ -1,17 +1,17 @@
 export type CredentialsWithUserName = {
-	_kind?: 'username';
+	type: 'username';
 	username: string;
 	password: string;
 };
 
 export type CredentialsWithEmail = {
-	_kind?: 'email';
+	type: 'email';
 	email: string;
 	password: string;
 };
 
 export type CredentialsWithPhoneNumber = {
-	_kind?: 'phoneNumber';
+	type: 'phoneNumber';
 	phoneNumber: string;
 	password: string;
 };
@@ -20,3 +20,8 @@ export type SigninCredentials =
 	| CredentialsWithUserName
 	| CredentialsWithEmail
 	| CredentialsWithPhoneNumber;
+
+export type OTPSigninCredentials =
+	| Omit<CredentialsWithUserName, 'password'>
+	| Omit<CredentialsWithEmail, 'password'>
+	| Omit<CredentialsWithPhoneNumber, 'password'>;

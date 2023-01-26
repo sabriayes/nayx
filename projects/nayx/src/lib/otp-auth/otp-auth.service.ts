@@ -5,9 +5,9 @@ import {
 	AuthEndpoint,
 	AuthToken,
 	BaseAuthenticationService,
-	SigninCredentials,
 	BasicAuthResponse,
 	OTPAuthResponse,
+	OTPSigninCredentials,
 } from '@nayx/core/index';
 import {
 	OTPAuthServiceOptions,
@@ -30,9 +30,9 @@ export class OTPAuthenticationService<
 		OTP_AUTH_SERVICE_OPTIONS,
 	);
 
-	signIn(credentials: SigninCredentials): Observable<R> {
+	signIn(credentials: Partial<OTPSigninCredentials>): Observable<R> {
 		const { retryLimit } = this.options;
-		delete credentials._kind;
+		delete credentials.type;
 
 		return this.http
 			.post<R>(this.getEndpoint(AuthEndpoint.SIGN_IN), credentials, {
