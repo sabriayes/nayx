@@ -23,7 +23,7 @@ içerir.
 | **phoneNumner - password** | `CredentialsWithPhoneNumber` |
 
 `LOCAL_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
-aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServiceOptions`\
+aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServiceOptions`
 
 ### Entegrasyon
 
