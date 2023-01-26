@@ -1,7 +1,7 @@
 # 📚 Nayx
 Naylalabs Web takımının **Angular** uygulamaları geliştirirken sıkça kullandığı
 **Service, Interceptor, Guard, Token** bileşenlerini içerir. 
-Tüm bileşenler **Angular 15** sürümü ile uyumlu olacak şekilde geliştirilmiştir.\
+Tüm bileşenler **Angular 15** sürümü ile uyumlu olacak şekilde geliştirilmiştir.
 
 Bu repo **Authentication, Token Storage, Local Storage** işlemleri için 
 farklı servisler içermektedir. Entegrasyon ile ilgili bilgileri ve dikkat edilmesi 
