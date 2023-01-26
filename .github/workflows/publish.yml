@@ -21,7 +21,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ng-dist
+          name: nayx-build
           path: dist
         
   publish:
@@ -39,10 +39,10 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: ng-dist
+          name: nayx-build
       - name: Publish to NPM
         run: |
-          cd naylalabs
+          cd nayx
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

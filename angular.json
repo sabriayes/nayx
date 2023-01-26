@@ -3,7 +3,7 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"ng-libs": {
+		"nayx-app": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:component": {
@@ -71,10 +71,10 @@
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
 						"production": {
-							"browserTarget": "ng-libs:build:production"
+							"browserTarget": "nayx-app:build:production"
 						},
 						"development": {
-							"browserTarget": "ng-libs:build:development"
+							"browserTarget": "nayx-app:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
@@ -82,7 +82,7 @@
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
 					"options": {
-						"browserTarget": "ng-libs:build"
+						"browserTarget": "nayx-app:build"
 					}
 				},
 				"test": {
@@ -103,23 +103,23 @@
 				}
 			}
 		},
-		"naylalabs": {
+		"nayx": {
 			"projectType": "library",
-			"root": "projects/naylalabs",
-			"sourceRoot": "projects/naylalabs/src",
+			"root": "projects/nayx",
+			"sourceRoot": "projects/nayx/src",
 			"prefix": "lib",
 			"architect": {
 				"build": {
 					"builder": "@angular-devkit/build-angular:ng-packagr",
 					"options": {
-						"project": "projects/naylalabs/ng-package.json"
+						"project": "projects/nayx/ng-package.json"
 					},
 					"configurations": {
 						"production": {
-							"tsConfig": "projects/naylalabs/tsconfig.lib.prod.json"
+							"tsConfig": "projects/nayx/tsconfig.lib.prod.json"
 						},
 						"development": {
-							"tsConfig": "projects/naylalabs/tsconfig.lib.json"
+							"tsConfig": "projects/nayx/tsconfig.lib.json"
 						}
 					},
 					"defaultConfiguration": "production"
@@ -127,7 +127,7 @@
 				"test": {
 					"builder": "@angular-devkit/build-angular:karma",
 					"options": {
-						"tsConfig": "projects/naylalabs/tsconfig.spec.json",
+						"tsConfig": "projects/nayx/tsconfig.spec.json",
 						"polyfills": [
 							"zone.js",
 							"zone.js/testing"

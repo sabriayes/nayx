@@ -4,15 +4,15 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from '@app/app.component';
 import { importProvidersFrom } from '@angular/core';
-import { AuthEndpoint, AuthToken } from '@naylalabs/core/enums';
-import { LocalAuthenticationModule } from '@naylalabs/local-auth/local-auth.module';
+import { AuthEndpoint, AuthToken } from '@nayx/core/enums';
+import { LocalAuthenticationModule } from '@nayx/local-auth/local-auth.module';
 import {
 	AUTH_TOKENS_SERVICE_OPTIONS,
 	AuthTokensModule,
-} from '@naylalabs/auth-tokens';
-import { LOCAL_AUTH_SERVICE_OPTIONS } from '@naylalabs/local-auth';
-import { LocalStorageModule } from '@naylalabs/local-storage';
-import { authInterceptor } from '@naylalabs/auth-interceptor';
+} from '@nayx/auth-tokens';
+import { LOCAL_AUTH_SERVICE_OPTIONS } from '@nayx/local-auth';
+import { LocalStorageModule } from '@nayx/local-storage';
+import { authInterceptor } from '@nayx/auth-interceptor';
 
 bootstrapApplication(AppComponent, {
 	providers: [

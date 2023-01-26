@@ -30,11 +30,11 @@
 			"@app/*": [
 				"src/app/*"
 			],
-			"@naylalabs/*": [
-				"projects/naylalabs/src/lib/*"
+			"@nayx/*": [
+				"projects/nayx/src/lib/*"
 			],
-			"@naylalabs/core/*": [
-				"projects/naylalabs/src/core/*"
+			"@nayx/core/*": [
+				"projects/nayx/src/core/*"
 			],
 			"naylalabs": [
 				"dist/naylalabs"

@@ -8,13 +8,13 @@
 		"email": "sabri@naylalabs.com",
 		"url": "https://github.com/sabriayes"
 	},
-	"homepage": "https://github.com/sabriayes/ng-libs",
+	"homepage": "https://github.com/sabriayes/nayx",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/sabriayes/ng-libs.git"
+		"url": "https://github.com/sabriayes/nayx.git"
 	},
 	"bugs": {
-		"url": "https://github.com/sabriayes/ng-libs/issues"
+		"url": "https://github.com/sabriayes/nayx/issues"
 	},
 	"scripts": {
 		"ng": "ng",
@@ -24,7 +24,7 @@
 		"build": "ng build",
 		"build:dev": "ng build -c development",
 		"build:stage": "ng build -c staging",
-		"build:lib": "ng build naylalabs",
+		"build:nayx": "ng build nayx",
 		"watch": "ng build --watch -c development",
 		"i18n:extract": "ng extract-i18n --output-path src/locales",
 		"lint": "ng lint",
