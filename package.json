@@ -24,6 +24,7 @@
 		"build": "ng build",
 		"build:dev": "ng build -c development",
 		"build:stage": "ng build -c staging",
+		"build:lib": "ng build naylalabs",
 		"watch": "ng build --watch -c development",
 		"i18n:extract": "ng extract-i18n --output-path src/locales",
 		"lint": "ng lint",

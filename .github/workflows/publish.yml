@@ -1,38 +1,35 @@
 name: "🤘 Publish NPM Package"
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: node
-        uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: dependencies
+      - name: Install Dependencies
         run: npm install
-      - name: build
-        run: ng build naylalabs
+      - name: Build
+        run: npm run build:lib
         
   publish:
-    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: publish
+      - name: Publish to NPM
         run: |
           cd dist/naylalabs
-          npm config set //registry.npmjs.org/:_authToken ${NPM_ACCESS_TOKEN}
-          npm publish --ignore-scripts --access public
+          npm publish
         env:
-          NPM_ACCESS_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
