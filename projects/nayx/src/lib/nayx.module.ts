@@ -8,12 +8,17 @@ import {
 	AuthTokensModule,
 	AuthenticationTokensService,
 } from '@nayx/auth-tokens';
+import {
+	OTPAuthenticationModule,
+	OTPAuthenticationService,
+} from '@nayx/otp-auth';
 
 @NgModule({
 	imports: [
 		LocalStorageModule.forRoot(),
 		AuthTokensModule.forRoot(),
 		LocalAuthenticationModule.forRoot(),
+		OTPAuthenticationModule.forRoot(),
 	],
 })
 export class NayxModule {
@@ -22,6 +27,7 @@ export class NayxModule {
 			ngModule: LocalAuthenticationModule,
 			providers: [
 				LocalAuthenticationService,
+				OTPAuthenticationService,
 				LocalStorageService,
 				AuthenticationTokensService,
 			],

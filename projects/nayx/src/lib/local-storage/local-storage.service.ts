@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { StorageService } from '@nayx/core/abstracts';
-import { LOCAL_STORAGE } from '../tokens';
+import { LOCAL_STORAGE } from '@nayx/tokens';
 
 @Injectable()
 export class LocalStorageService implements StorageService {

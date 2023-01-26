@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { SigninCredentials, BasicAuthResponse } from '@nayx/core/models';
-import { AuthService } from '@nayx/core/abstracts';
+import { AuthService } from '@nayx/core/abstracts/auth-service';
 
 export abstract class LocalAuthService<
 	T,

@@ -1,7 +1,6 @@
 import { Router, UrlTree } from '@angular/router';
 import { inject } from '@angular/core';
-import { LocalAuthService, TokensService } from '@nayx/core/abstracts';
-import { AuthToken } from '@nayx/core/enums';
+import { LocalAuthService, TokensService, AuthToken } from '@nayx/core/index';
 import { catchError, iif, Observable, of, switchMap } from 'rxjs';
 
 type AuthGuardReturnType = () => Observable<boolean | UrlTree>;

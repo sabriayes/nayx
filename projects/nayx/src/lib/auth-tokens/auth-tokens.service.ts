@@ -4,8 +4,8 @@ import {
 	StorableTokensService,
 	StorageService,
 	TokensService,
-} from '@nayx/core/abstracts';
-import { AuthToken } from '@nayx/core/enums';
+	AuthToken,
+} from '@nayx/core/index';
 import { AUTH_TOKENS_SERVICE_OPTIONS } from './options.const';
 import { AuthenticationTokensServiceOptions } from './options.interface';
 

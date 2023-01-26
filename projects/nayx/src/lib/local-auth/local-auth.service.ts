@@ -1,72 +1,27 @@
 import { inject, Injectable } from '@angular/core';
 import {
-	HttpClient,
-	HttpContext,
-	HttpErrorResponse,
-} from '@angular/common/http';
-import {
+	AuthEndpoint,
+	AuthToken,
+	BaseAuthenticationService,
 	ConfigurableAuthService,
 	LocalAuthService,
-} from '@nayx/core/abstracts/auth-service';
-import { SigninCredentials, BasicAuthResponse } from '@nayx/core/models';
-import { TokensService } from '@nayx/core/abstracts';
-import { AuthEndpoint, AuthToken } from '@nayx/core/enums';
-import {
-	BehaviorSubject,
-	catchError,
-	iif,
-	Observable,
-	of,
-	retry,
-	switchMap,
-	tap,
-	throwError,
-} from 'rxjs';
-import { IS_INTERCEPTORS_ENABLED } from '@nayx/contexts';
+	SigninCredentials,
+	BasicAuthResponse,
+} from '@nayx/core/index';
 import { LocalAuthServiceOptions } from './options.interface';
 import { LOCAL_AUTH_SERVICE_OPTIONS } from './options.const';
+import { catchError, Observable, retry, tap, throwError } from 'rxjs';
 
 @Injectable()
 export class LocalAuthenticationService<A, R extends BasicAuthResponse>
-	extends ConfigurableAuthService<LocalAuthServiceOptions>
+	extends BaseAuthenticationService<A, LocalAuthServiceOptions>
 	implements
 		LocalAuthService<A, R>,
 		ConfigurableAuthService<LocalAuthServiceOptions>
 {
-	public readonly options = inject<LocalAuthServiceOptions>(
+	public override readonly options = inject<LocalAuthServiceOptions>(
 		LOCAL_AUTH_SERVICE_OPTIONS,
 	);
-	private readonly tokens = inject(TokensService);
-	private readonly http = inject(HttpClient);
-
-	public $account = new BehaviorSubject<A | undefined>(undefined);
-
-	private context: HttpContext = new HttpContext().set(
-		IS_INTERCEPTORS_ENABLED,
-		true,
-	);
-
-	getAccount(): Observable<A | undefined> {
-		return this.$account.asObservable();
-	}
-
-	verifyAccount(): Observable<A | HttpErrorResponse> {
-		return this.http
-			.get<A>(this.getEndpoint(AuthEndpoint.VERIFY_ACCOUNT), {
-				context: this.context,
-			})
-			.pipe(
-				retry(1),
-				tap((account: A) => this.$account.next(account)),
-				catchError((err) => {
-					return throwError(() => err);
-				}),
-			);
-	}
-
-	isAuth(): Observable<boolean> {
-		return of(!!this.tokens.get(AuthToken.ACCESS_TOKEN));
-	}
 
 	signIn(credentials: SigninCredentials): Observable<R> {
 		const { retryLimit } = this.options;
@@ -86,23 +41,5 @@ export class LocalAuthenticationService<A, R extends BasicAuthResponse>
 					return throwError(() => err);
 				}),
 			);
-	}
-
-	signOut(): Observable<never> {
-		this.tokens.clear();
-		this.$account.next(undefined);
-
-		const hasSignOut = (): boolean =>
-			!!this.options.endpoints[AuthEndpoint.SIGN_OUT];
-
-		return iif(
-			hasSignOut,
-			this.http
-				.delete(this.getEndpoint(AuthEndpoint.SIGN_OUT), {
-					context: this.context,
-				})
-				.pipe(switchMap(() => of())),
-			of(),
-		);
 	}
 }

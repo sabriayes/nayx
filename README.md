@@ -1,18 +1,9 @@
 # Nayx
-Some useful libraries needed by Naylalabs teams for development Angular application.
-Compatible with `Angular v15`
+Naylalabs Web takımının **Angular** uygulamaları geliştirirken sıkça kullandığı
+**Service, Interceptor, Guard, Token** bileşenlerini içerir. 
+Tüm bileşenler **Angular 15** sürümü ile uyumlu olacak şekilde geliştirilmiştir.
 
-## Injection Tokens
-You can see all the services in this repository below.
-
-### WINDOW
-`<Window>`
-
-### LOCAL_STORAGE
-`<Storage>`
-
-## Services
-You can see all the services in this repository below.
+## Servisler
 
 ### LocalAuthenticationSerivce 
 `<LocalAuthService>`
@@ -28,6 +19,15 @@ You can see all the services in this repository below.
 
 ### MemoryStorageService
 `<StorageService>`
+
+## Injection Tokens
+You can see all the services in this repository below.
+
+### WINDOW
+`<Window>`
+
+### LOCAL_STORAGE
+`<Storage>`
 
 ## Interceptors
 You can see all the services in this repository below.

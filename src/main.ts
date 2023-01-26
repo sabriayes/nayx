@@ -13,6 +13,7 @@ import {
 import { LOCAL_AUTH_SERVICE_OPTIONS } from '@nayx/local-auth';
 import { LocalStorageModule } from '@nayx/local-storage';
 import { authInterceptor } from '@nayx/auth-interceptor';
+import { OTPAuthenticationModule } from '@nayx/otp-auth';
 
 bootstrapApplication(AppComponent, {
 	providers: [
@@ -49,6 +50,7 @@ bootstrapApplication(AppComponent, {
 			LocalStorageModule,
 			AuthTokensModule,
 			LocalAuthenticationModule,
+			OTPAuthenticationModule,
 		),
 	],
 });

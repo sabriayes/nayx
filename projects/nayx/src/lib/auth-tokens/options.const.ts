@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
-import { TokensServiceOptions } from '@nayx/core/models';
 import { AuthToken } from '@nayx/core/enums';
+import { AuthenticationTokensServiceOptions } from '@nayx/auth-tokens/options.interface';
 
-export const AUTH_TOKENS_SERVICE_DEFAULT_OPTIONS: () => TokensServiceOptions =
+export const AUTH_TOKENS_SERVICE_DEFAULT_OPTIONS: () => AuthenticationTokensServiceOptions =
 	() => ({
 		keys: {
 			[AuthToken.ACCESS_TOKEN]: 'accessToken',
@@ -10,7 +10,7 @@ export const AUTH_TOKENS_SERVICE_DEFAULT_OPTIONS: () => TokensServiceOptions =
 		},
 	});
 
-export const AUTH_TOKENS_SERVICE_OPTIONS: InjectionToken<TokensServiceOptions> =
+export const AUTH_TOKENS_SERVICE_OPTIONS: InjectionToken<AuthenticationTokensServiceOptions> =
 	new InjectionToken('NAUTH_TOKENS_SERVICE_OPTIONS', {
 		providedIn: 'root',
 		factory: AUTH_TOKENS_SERVICE_DEFAULT_OPTIONS,

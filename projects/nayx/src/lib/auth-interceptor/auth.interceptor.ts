@@ -1,9 +1,8 @@
 import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { TokensService } from '@nayx/core/abstracts';
-import { AuthToken } from '@nayx/core/enums';
 import { iif, of, switchMap } from 'rxjs';
 import { IS_INTERCEPTORS_ENABLED } from '@nayx/contexts';
+import { TokensService, AuthToken } from '@nayx/core/index';
 
 function cloneRequest(
 	req: HttpRequest<unknown>,
