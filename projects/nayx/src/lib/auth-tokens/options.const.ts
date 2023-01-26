@@ -1,6 +1,7 @@
 import { InjectionToken } from '@angular/core';
-import { AuthToken } from '@nayx/core/enums';
-import { AuthenticationTokensServiceOptions } from '@nayx/auth-tokens/options.interface';
+import { AuthToken, TokensServiceOptions } from '@nayx/core/index';
+
+export type AuthenticationTokensServiceOptions = TokensServiceOptions;
 
 export const AUTH_TOKENS_SERVICE_DEFAULT_OPTIONS: () => AuthenticationTokensServiceOptions =
 	() => ({

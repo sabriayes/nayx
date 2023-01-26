@@ -6,8 +6,10 @@ import {
 	TokensService,
 	AuthToken,
 } from '@nayx/core/index';
-import { AUTH_TOKENS_SERVICE_OPTIONS } from './options.const';
-import { AuthenticationTokensServiceOptions } from './options.interface';
+import {
+	AUTH_TOKENS_SERVICE_OPTIONS,
+	AuthenticationTokensServiceOptions,
+} from './options.const';
 
 @Injectable()
 export class AuthenticationTokensService
