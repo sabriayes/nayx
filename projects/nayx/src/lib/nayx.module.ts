@@ -16,8 +16,8 @@ import {
 		LocalAuthenticationModule.forRoot(),
 	],
 })
-export class NaylalabsModule {
-	static forRoot(): ModuleWithProviders<NaylalabsModule> {
+export class NayxModule {
+	static forRoot(): ModuleWithProviders<NayxModule> {
 		return {
 			ngModule: LocalAuthenticationModule,
 			providers: [

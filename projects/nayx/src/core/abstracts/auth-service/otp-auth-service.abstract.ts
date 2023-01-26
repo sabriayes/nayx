@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { SigninCredentials, OTPAuthResponse } from '@nayx/core/models';
-import { AuthService } from './auth-service.abstract';
+import { AuthService } from '@nayx/core/abstracts';
 
 export abstract class OTPAuthService<
 	T,
