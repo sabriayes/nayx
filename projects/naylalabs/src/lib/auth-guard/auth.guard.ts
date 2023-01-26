@@ -22,7 +22,7 @@ type PropertiesType<T> = (keyof T)[];
  * {
  *      path: 'dashboard',
  *      component: DashboardComponent,
- *      canActive: [authGuard(['/auth], ['isProfileCompelete])]
+ *      canActive: [authGuard<Account>(['/auth], ['isProfileCompelete])]
  * }
  * ```
  */
