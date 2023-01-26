@@ -52,12 +52,13 @@ export class BaseAuthenticationService<A, Options extends AuthServiceOptions>
 	}
 
 	verifyAccount(): Observable<A | HttpErrorResponse> {
+		const { retryLimit } = this.options;
 		return this.http
 			.get<A>(this.getEndpoint(AuthEndpoint.VERIFY_ACCOUNT), {
 				context: this.context,
 			})
 			.pipe(
-				retry(1),
+				retry(retryLimit),
 				tap((account: A) => this.$account.next(account)),
 				catchError((err) => {
 					return throwError(() => err);
