@@ -66,7 +66,7 @@ export class SignInPageComponent {
     authService = inject<LocalAuthService<User, SignInResponse>>(LocalAuthService);
 
     signIn(creds: CredentialsWithEmail) {
-        this.signIn(creds).subscribe(
+        this.authService.signIn(creds).subscribe(
             () => this.router.navigate['/dashbaord']
         );
     }
