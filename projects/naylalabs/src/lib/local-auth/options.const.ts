@@ -6,7 +6,7 @@ export const LOCAL_AUTH_SERVICE_DEFAULT_OPTIONS: () => LocalAuthServiceOptions =
 	() => ({
 		retryLimit: 1,
 		baseURL: 'http://localhost',
-		endpoins: {
+		endpoints: {
 			[AuthEndpoint.SIGN_IN]: 'auth', // METHOD: POST
 			[AuthEndpoint.SIGN_OUT]: 'auth', // METHOD: DELETE
 			[AuthEndpoint.VERIFY_ACCOUNT]: 'auth', // METHOD: GET

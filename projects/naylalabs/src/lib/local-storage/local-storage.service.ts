@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { LOCAL_STORAGE } from './local-storage.const';
 import { StorageService } from '@naylalabs/core/abstracts';
+import { LOCAL_STORAGE } from '../tokens';
 
 @Injectable()
 export class LocalStorageService implements StorageService {

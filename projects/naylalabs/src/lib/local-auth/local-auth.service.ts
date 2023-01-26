@@ -93,7 +93,7 @@ export class LocalAuthenticationService<A, R extends BasicAuthResponse>
 		this.$account.next(undefined);
 
 		const hasSignOut = (): boolean =>
-			!!this.options.endpoins[AuthEndpoint.SIGN_OUT];
+			!!this.options.endpoints[AuthEndpoint.SIGN_OUT];
 
 		return iif(
 			hasSignOut,

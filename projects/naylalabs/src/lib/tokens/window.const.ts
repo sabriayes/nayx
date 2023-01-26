@@ -11,7 +11,7 @@ export const WINDOW = new InjectionToken<Window>('WINDOW', {
 
 		const document = inject<Document>(DOCUMENT);
 		if (!document.defaultView) {
-			throw new NullInjectionError('Window|WindowConst');
+			throw new NullInjectionError('Window|Window');
 		}
 
 		return document.defaultView;

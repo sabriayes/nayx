@@ -1,4 +1,4 @@
-export * from './window.const';
+export * from '../tokens/window.const';
 export * from './local-storage.module';
-export * from './local-storage.const';
+export * from '../tokens/local-storage.const';
 export * from './local-storage.service';

@@ -13,3 +13,4 @@ export * from './lib/local-storage';
 export * from './lib/memory-storage';
 export * from './lib/contexts';
 export * from './lib/auth-guard';
+export * from './lib/tokens';
