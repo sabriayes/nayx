@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
-          scope: '@naylalabs'
+          scope: '@sabriayes'
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
