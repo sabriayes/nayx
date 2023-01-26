@@ -16,10 +16,10 @@ export class AuthenticationTokensService
 		StorableTokensService,
 		ConfigurableTokensService<AuthenticationTokensServiceOptions>
 {
+	public storage = inject<StorageService>(StorageService);
 	public options = inject<AuthenticationTokensServiceOptions>(
 		AUTH_TOKENS_SERVICE_OPTIONS,
 	);
-	public storage = inject<StorageService>(StorageService);
 
 	set(type: AuthToken, value: string) {
 		return this.storage.set(this.options.keys[type], value);

@@ -8,7 +8,7 @@ import {
 	SigninCredentials,
 	BasicAuthResponse,
 } from '@nayx/core/index';
-import { LocalAuthServiceOptions } from './options.interface';
+import { LocalAuthServiceOptions } from './options.const';
 import { LOCAL_AUTH_SERVICE_OPTIONS } from './options.const';
 import { catchError, Observable, retry, tap, throwError } from 'rxjs';
 

@@ -9,9 +9,8 @@ import {
 	BasicAuthResponse,
 	OTPAuthResponse,
 } from '@nayx/core/index';
-import { OTPAuthServiceOptions } from './options.interface';
+import { OTPAuthServiceOptions } from './options.const';
 import { OTP_AUTH_SERVICE_OPTIONS } from './options.const';
-
 import { catchError, Observable, retry, tap, throwError } from 'rxjs';
 
 @Injectable()

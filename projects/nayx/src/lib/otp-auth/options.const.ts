@@ -1,6 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { AuthEndpoint } from '@nayx/core/enums';
-import { OTPAuthServiceOptions } from '@nayx/otp-auth/options.interface';
+import { AuthServiceOptions } from '@nayx/core/models';
+
+export type OTPAuthServiceOptions = AuthServiceOptions;
 
 export const OTP_AUTH_SERVICE_DEFAULT_OPTIONS: () => OTPAuthServiceOptions =
 	() => ({

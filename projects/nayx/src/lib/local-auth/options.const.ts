@@ -1,6 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { AuthEndpoint } from '@nayx/core/enums';
-import { LocalAuthServiceOptions } from '@nayx/local-auth/options.interface';
+import { AuthServiceOptions } from '@nayx/core/models';
+
+export type LocalAuthServiceOptions = AuthServiceOptions;
 
 export const LOCAL_AUTH_SERVICE_DEFAULT_OPTIONS: () => LocalAuthServiceOptions =
 	() => ({
