@@ -32,7 +32,7 @@
 		"test:integration": "ng test",
 		"husky:install": "husky install"
 	},
-	"private": true,
+	"private": false,
 	"dependencies": {
 		"@angular/animations": "^15.0.0",
 		"@angular/common": "^15.0.0",
