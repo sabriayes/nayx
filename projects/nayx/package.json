@@ -1,7 +1,7 @@
 {
 	"name": "@sabriayes/nayx",
-	"description": "Some useful libraries needed by Naylalabs team to develop Angular app",
-	"version": "0.0.2",
+	"description": "Some libraries needed by Naylalabs team to develop Angular app",
+	"version": "0.0.3",
 	"license": "MIT",
 	"author": {
 		"name": "Sabri Ayeş",
