@@ -3,6 +3,7 @@
 	"description": "Some useful libraries needed by Naylalabs team to develop Angular app",
 	"version": "0.0.3",
 	"license": "MIT",
+	"private": false,
 	"author": {
 		"name": "Sabri Ayeş",
 		"email": "sabri@naylalabs.com",
@@ -32,7 +33,6 @@
 		"test:integration": "ng test",
 		"husky:install": "husky install"
 	},
-	"private": false,
 	"dependencies": {
 		"@angular/animations": "^15.0.0",
 		"@angular/common": "^15.0.0",
