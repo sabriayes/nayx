@@ -20,7 +20,7 @@ içerir.
 |----------------------------|------------------------------|
 | **username - password**    | `CredentialsWithUsername`    |
 | **email - password**       | `CredentialsWithEmail`       |
-| **phoneNumner - password** | `CredentialsWithPhoneNumber` |
+| **phoneNumber - password** | `CredentialsWithPhoneNumber` |
 
 `LOCAL_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
 aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServiceOptions`
