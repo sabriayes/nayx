@@ -9,8 +9,9 @@ gerekenleri aşağıdaki bölümde bulabilirsiniz.
 
 ## 🔐 Local Authentication Service
 
+📦 `LocalAuthenticationModule`\
 👻 `LocalAuthService`\
-📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
 
 Kullanıcı adı ve parola temelli basit oturum açma işlemleri için bu servisi 
 kullanın. `.signIn({...})` metodu farklı oturum açma işlemleri farklı arayüzler
@@ -75,8 +76,9 @@ export class SignInPageComponent {
 
 ## 📨 OTP Authentication Service
 
+📦 `OTPAuthenticationModule`\
 👻 `OTPAuthService`\
-📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/otp-auth/README.md)
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/otp-auth/README.md)
 
 OTP temelli oturum açma işlemleri için bu servisi kullanın. `.signIn({...})` metodu 
 farklı oturum açma işlemleri farklı arayüzler içerir ve istemciye yalnıza 
@@ -172,8 +174,9 @@ export class VeriyfOTPPageComponent {
 
 ## 🔑 Authentication Tokens Service
 
+📦 `AuthTokensModule`\
 👻 `TokensService`\
-📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-tokens/README.md)
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-tokens/README.md)
 
 Oturum jetonlarını saklamak için bu servis kullanılır. `OTPAuthenticationModule`
 ve `LocalAuthenticationModule`içerisinde varsayılan olarak bağımlılık ağacına
@@ -183,14 +186,16 @@ kullanabilirsiniz.
 `AUTH_TOKENS_SERVICE_OTPIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
 aktarmanızı sağlar.
 
+### Entegrasyon
+
 ```ts
 /**
  * {keys} jetonların hangi anahtarlar ile depolanacağını belirtir.
- * ACCESS_TOKEN jetonu `access_token` anahtarı ile depolanır.
+ * Bu örnekte ACCESS_TOKEN jetonu {access_token} anahtarı ile depolanır.
  * NOT: Depolama yöntemi StorageService soyut sınıfı tarafından sağlanır
  */
 import { importProvidersFrom } from "@angular/core";
-import { AUTH_TOKENS_SERVICE_OTPIONS, AuthToken } from '@sabriayes/nayx';
+import { AUTH_TOKENS_SERVICE_OTPIONS, AuthTokensModule, AuthToken } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {
     providers: [
@@ -202,28 +207,157 @@ bootstrapApplication(AppComponent, {
                     [AuthToken.REFRESH_TOKEN]: 'refresh_token',
                 },
             }
-        }
+        },
+        importProvidersFrom(
+            AuthTokensModule
+        )
     ]
 });
 ```
 
+### Temel Kullanım
+
+```ts
+import {Component, inject } from "@angular/core";
+import { TokensService } from "@sabriayes/nayx";
+
+@Component({})
+export class SomePageComponent implements OnInit {
+    tokensService = inject<TokensService>(TokensService);
+    
+    ngOnInit() {
+        const accessToken: string 
+            = this.tokensService.get(AuthToken.ACCESS_TOKEN);
+    }
+}
+```
+
 ## 🚛 Local Storage Service
 
+📦 `LocalStorageModule`\
 👻 `StorageService`\
-📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-storage/README.md)
+
+Tarayıcı üzerinde veri depolamak için bu servisi kullanın. 
+`StorageService` soyut sınıfını kullanarak özelleştirilmiş depolama servisleri
+kullanabilirsiniz.
+
+### Entegrasyon
+
+```ts
+import { importProvidersFrom } from "@angular/core";
+import { LocalStorageModule } from '@sabriayes/nayx';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        importProvidersFrom(
+            LocalStorageModule
+        )
+    ]
+});
+```
+
+### Temel Kullanım
+
+```ts
+import {Component, inject } from "@angular/core";
+import { StorageService } from "@sabriayes/nayx";
+
+@Component({})
+export class SomePageComponent implements OnInit {
+    storageServie = inject<StorageService>(StorageService);
+    
+    ngOnInit() {
+        const username: string = this.storageServie.get('username');
+    }
+}
+```
 
 ## 💾 Memory Storage Service
 
+📦 `MemoryStorageModule`\
 👻 `StorageService`\
-📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/memory-storage/README.md)
 
+InMemory yöntemi ile veri depolamak için bu servisi kullanın.
+`StorageService` soyut sınıfını kullanarak özelleştirilmiş depolama servisleri
+kullanabilirsiniz.
+
+### Entegrasyon
+
+```ts
+import { importProvidersFrom } from "@angular/core";
+import { MemoryStorageModule } from '@sabriayes/nayx';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        importProvidersFrom(
+            MemoryStorageModule
+        )
+    ]
+});
+```
+
+### Temel Kullanım
+
+```ts
+import { Component, inject } from "@angular/core";
+import { StorageService } from "@sabriayes/nayx";
+
+@Component({})
+export class SomePageComponent implements OnInit {
+    storageServie = inject<StorageService>(StorageService);
+    
+    ngOnInit() {
+        const username: string = this.storageServie.get('username');
+    }
+}
+```
 
 ## 🌏 WINDOW Injection Token
 
 👻 `Window`\
-📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
+📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/tokens/README.md)
+
+Tarayıcının `window` nesnesine erişmek için **WINDOW** jetonunu kullanın.
+`window` nesnesinin bulunamadığı durumlarda hata fırlatır.
+
+### Temel Kullanım
+
+```ts
+import { Component, inject } from "@angular/core";
+import { WINDOW } from "@sabriayes/nayx";
+
+@Component({})
+export class SomePageComponent {
+    window = inject<Window>(WINDOW);
+    
+    openPage() {
+        this.window.open('https://website.com');
+    }
+}
+```
 
 ## 🚚 Local Storage Injection Token
 
 👻 `Storage`\
-📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
+📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/tokens/README.md)
+
+Tarayıcının `localStorage`nesnesine erişmek için bu jetonu kullanın.
+`window` nesnesinin bulunamadığı durumlarda hata fırlatır.
+
+### Temel Kullanım
+
+```ts
+import { Component, inject } from "@angular/core";
+import { LOCAL_STORAGE } from "@sabriayes/nayx";
+
+@Component({})
+export class SomePageComponent {
+    storage = inject<Storage>(LOCAL_STORAGE);
+    
+    constructor () {
+        this.storage.setItem('username', 'sabriayes');
+    }
+}
+```
