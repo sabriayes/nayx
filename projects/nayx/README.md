@@ -104,18 +104,6 @@ Tarayıcının `localStorage`nesnesine erişmek için bu jetonu kullanın.
 bağımlılığını kullanarak oturum bilgisini kontrol eder. Oturum açılmamış ise
 istenilen rotaya yönlendirme yapar.
 
-```ts
-const ROUTES = [
-    {
-        path: 'dashaboard',
-        conmponent: DashboardPageComponent,
-        canActivate: [
-            authGuard(['/401'])
-        ]
-    }
-]
-```
-
 ## 🚚 Auth Interceptor
 
 📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-interceptor/README.md)
