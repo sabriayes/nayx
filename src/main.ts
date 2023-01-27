@@ -14,9 +14,12 @@ import { LOCAL_AUTH_SERVICE_OPTIONS } from '@nayx/local-auth';
 import { LocalStorageModule } from '@nayx/local-storage';
 import { authInterceptor } from '@nayx/auth-interceptor';
 import { OTPAuthenticationModule } from '@nayx/otp-auth';
+import { provideRouter } from '@angular/router';
+import { ROUTES } from './routes';
 
 bootstrapApplication(AppComponent, {
 	providers: [
+		provideRouter(ROUTES),
 		provideAnimations(),
 		provideHttpClient(withInterceptors([authInterceptor])),
 		{
@@ -38,8 +41,8 @@ bootstrapApplication(AppComponent, {
 			provide: LOCAL_AUTH_SERVICE_OPTIONS,
 			useValue: {
 				retryLimit: 1,
-				baseURL: 'https://api.sabriayes.com/',
-				endpoins: {
+				baseURL: 'https://dev-api-sales-sense-backend.naylalabs.xyz',
+				endpoints: {
 					[AuthEndpoint.SIGN_IN]: 'auth', // METHOD: POST
 					[AuthEndpoint.SIGN_OUT]: 'auth', // METHOD: DELETE
 					[AuthEndpoint.VERIFY_ACCOUNT]: 'auth', // METHOD: GET

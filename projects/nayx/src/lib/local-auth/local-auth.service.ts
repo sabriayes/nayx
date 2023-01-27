@@ -26,6 +26,7 @@ export class LocalAuthenticationService<A, R extends BasicAuthResponse>
 	);
 
 	signIn(credentials: Partial<SigninCredentials>): Observable<R> {
+		console.log(this.options);
 		const { retryLimit } = this.options;
 		delete credentials.type;
 
