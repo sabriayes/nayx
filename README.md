@@ -314,7 +314,7 @@ export class SomePageComponent implements OnInit {
 }
 ```
 
-## 🌏 WINDOW Injection Token
+## 🌏 Window Injection Token
 
 👻 `Window`\
 📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/tokens/README.md)
