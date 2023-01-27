@@ -11,6 +11,7 @@ export abstract class OTPAuthService<
 	R extends OTPAuthResponse,
 	V extends BasicAuthResponse,
 > extends AuthService<T> {
+	abstract otpResponse: R;
 	abstract signIn(credentials: OTPSigninCredentials): Observable<R>;
-	abstract verifyOTP(token: string): Observable<V>;
+	abstract verifyOTP(code: string): Observable<V>;
 }

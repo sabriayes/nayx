@@ -26,6 +26,7 @@ export class OTPAuthenticationService<
 		OTPAuthService<A, R, V>,
 		ConfigurableAuthService<OTPAuthServiceOptions>
 {
+	otpResponse!: R;
 	public override readonly options = inject<OTPAuthServiceOptions>(
 		OTP_AUTH_SERVICE_OPTIONS,
 	);
@@ -40,22 +41,24 @@ export class OTPAuthenticationService<
 			})
 			.pipe(
 				retry(retryLimit),
+				tap((res) => (this.otpResponse = res)),
 				catchError((err) => {
 					return throwError(() => err);
 				}),
 			);
 	}
 
-	verifyOTP(token: string): Observable<V> {
+	verifyOTP(code: string): Observable<V> {
 		const { retryLimit } = this.options;
+		const body = {
+			code,
+			...this.otpResponse,
+		};
+
 		return this.http
-			.post<V>(
-				this.getEndpoint(AuthEndpoint.VERIFY_OTP),
-				{ token },
-				{
-					context: this.context,
-				},
-			)
+			.post<V>(this.getEndpoint(AuthEndpoint.VERIFY_OTP), body, {
+				context: this.context,
+			})
 			.pipe(
 				retry(retryLimit),
 				tap((res) => {
