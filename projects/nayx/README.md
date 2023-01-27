@@ -95,3 +95,36 @@ Tarayıcının `window` nesnesine erişmek için **WINDOW** jetonunu kullanın.
 
 Tarayıcının `localStorage`nesnesine erişmek için bu jetonu kullanın.
 `window` nesnesinin bulunamadığı durumlarda hata fırlatır.
+
+## 🚚 Auth Guard
+
+📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-guard/README.md)
+
+`Route` erişimine kısıtlama getirmek için bu fonksiyonu kullanın. `TokensService`
+bağımlılığını kullanarak oturum bilgisini kontrol eder. Oturum açılmamış ise
+istenilen rotaya yönlendirme yapar.
+
+```ts
+const ROUTES = [
+    {
+        path: 'dashaboard',
+        conmponent: DashboardPageComponent,
+        canActivate: [
+            authGuard(['/401'])
+        ]
+    }
+]
+```
+
+## 🚚 Auth Interceptor
+
+📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-interceptor/README.md)
+
+Her `HttpClient` çağrısının`headers` bilgisinde oturum jetonları bulunsun
+istiyorsanız bu fonksiyonu kullanın.
+
+`IS_INTERCEPTORS_DISABLED` context bilgisinin true olduğu durumlarda bu fonksiyon
+çalışmaz. `IS_INTERCEPTORS_DISABLED` context bilgisi bu paketteki tüm çarğrılarda varasyılan
+olarak false olarak kullanılır.
+
+https://angular.io/api/common/http/HttpContext

@@ -1,7 +1,7 @@
 import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { iif, of, switchMap } from 'rxjs';
-import { IS_INTERCEPTORS_ENABLED } from '@nayx/contexts';
+import { IS_INTERCEPTORS_DISABLED } from '@nayx/contexts';
 import { TokensService, AuthToken } from '@nayx/core/index';
 
 function cloneRequest(
@@ -30,7 +30,7 @@ export function authInterceptor(
 	return of(accessToken).pipe(
 		switchMap((accessToken: string | undefined) =>
 			iif(
-				() => !accessToken || !req.context.get(IS_INTERCEPTORS_ENABLED),
+				() => !accessToken || req.context.get(IS_INTERCEPTORS_DISABLED),
 				next(req),
 				of(cloneRequest(req, accessToken)).pipe(
 					switchMap((request: HttpRequest<unknown>) => next(request)),

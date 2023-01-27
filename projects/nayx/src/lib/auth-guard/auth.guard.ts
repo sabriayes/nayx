@@ -7,6 +7,9 @@ type AuthGuardReturnType = () => Observable<boolean | UrlTree>;
 type PropertiesType<T> = (keyof T)[];
 
 /**
+ * TODO: @sabriayes - Hesap doğrulama işlemi için ClassValidator kullanılmalı.
+ * https://github.com/typestack/class-validator
+ *
  * Oturum durumunu kontrol eder, başarılı ise rotaya erişim için izin verir.
  * Olumsuz durumda ise **{to}** rotasına yönlendirme yapar. **accessToken**
  * bilgisi varsa **LocalAuthService.verifyAccount()** çağrısı ile oturum

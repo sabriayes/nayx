@@ -24,7 +24,7 @@ import {
 	tap,
 	throwError,
 } from 'rxjs';
-import { IS_INTERCEPTORS_ENABLED } from '@nayx/contexts';
+import { IS_INTERCEPTORS_DISABLED } from '@nayx/contexts';
 
 @Injectable()
 export class BaseAuthenticationService<A, Options extends AuthServiceOptions>
@@ -36,8 +36,8 @@ export class BaseAuthenticationService<A, Options extends AuthServiceOptions>
 
 	readonly $account = new BehaviorSubject<A | undefined>(undefined);
 	readonly context: HttpContext = new HttpContext().set(
-		IS_INTERCEPTORS_ENABLED,
-		true,
+		IS_INTERCEPTORS_DISABLED,
+		false,
 	);
 
 	hasEndpoint(endpoint: AuthEndpoint): boolean {
