@@ -173,7 +173,39 @@ export class VeriyfOTPPageComponent {
 ## 🔑 Authentication Tokens Service
 
 👻 `TokensService`\
-📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
+📒 [Service Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-tokens/README.md)
+
+Oturum jetonlarını saklamak için bu servis kullanılır. `OTPAuthenticationModule`
+ve `LocalAuthenticationModule`içerisinde varsayılan olarak bağımlılık ağacına
+eklenmiştir. `TokensService` soyut sınıfını kullanarak özelleştirilmiş jeton servisleri
+kullanabilirsiniz.
+
+`AUTH_TOKENS_SERVICE_OTPIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
+aktarmanızı sağlar.
+
+```ts
+/**
+ * {keys} jetonların hangi anahtarlar ile depolanacağını belirtir.
+ * ACCESS_TOKEN jetonu `access_token` anahtarı ile depolanır.
+ * NOT: Depolama yöntemi StorageService soyut sınıfı tarafından sağlanır
+ */
+import { importProvidersFrom } from "@angular/core";
+import { AUTH_TOKENS_SERVICE_OTPIONS, AuthToken } from '@sabriayes/nayx';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        {
+            provide: AUTH_TOKENS_SERVICE_OTPIONS,
+            useValue: {
+                keys: {
+                    [AuthToken.ACCESS_TOKEN]: 'access_token',
+                    [AuthToken.REFRESH_TOKEN]: 'refresh_token',
+                },
+            }
+        }
+    ]
+});
+```
 
 ## 🚛 Local Storage Service
 
