@@ -12,7 +12,7 @@ type PropertiesType<T> = (keyof T)[];
  * bilgisi varsa **LocalAuthService.verifyAccount()** çağrısı ile oturum
  * doğrulanır.
  *
- * @param to - Yönelendirme yapılacak olan yol
+ * @param to - Yönlendirme yapılacak olan yol
  * @param props - Kullanıcın hesap bilgisinde `true` olması gereken anahtarlar
  * @return Observable<boolean|UrlTree>
  *
@@ -22,7 +22,7 @@ type PropertiesType<T> = (keyof T)[];
  *      path: 'dashboard',
  *      component: DashboardComponent,
  *      canActivate: [
- *          authGuard<Account>(['/auth], ['isProfileCompelete])
+ *          authGuard<Account>(['/auth], ['isProfileCompelete'])
  *      ]
  * }
  * ```

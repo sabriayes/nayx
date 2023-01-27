@@ -11,6 +11,7 @@ import {
 	AuthServiceOptions,
 	AuthEndpoint,
 	AuthToken,
+	EndpointError,
 } from '@nayx/core/index';
 import {
 	BehaviorSubject,
@@ -44,6 +45,10 @@ export class BaseAuthenticationService<A, Options extends AuthServiceOptions>
 	}
 
 	getEndpoint(endpoint: AuthEndpoint): string {
+		const foundEndpoint = this.options.endpoints[endpoint];
+		if (!foundEndpoint) {
+			throw new EndpointError(endpoint);
+		}
 		return `${this.options.baseURL}/${this.options.endpoints[endpoint]}`;
 	}
 
