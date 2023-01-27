@@ -338,7 +338,7 @@ export class SomePageComponent {
 }
 ```
 
-## 🚚 Local Storage Injection Token
+## 🪙 Local Storage Injection Token
 
 👻 `Storage`\
 📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/tokens/README.md)
@@ -362,7 +362,7 @@ export class SomePageComponent {
 }
 ```
 
-## 🚚 Auth Guard
+## ✋ Auth Guard
 
 📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-guard/README.md)
 
@@ -391,7 +391,7 @@ const ROUTES = [
 ]
 ```
 
-## 🚚 Auth Interceptor
+## 📝 Auth Interceptor
 
 📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-interceptor/README.md)
 
