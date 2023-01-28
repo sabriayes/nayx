@@ -213,7 +213,7 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import {Component, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { TokensService } from "@sabriayes/nayx";
 
 @Component({})
@@ -252,7 +252,7 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import {Component, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { StorageService } from "@sabriayes/nayx";
 
 @Component({})

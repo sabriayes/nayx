@@ -8,6 +8,7 @@ export * from './core/enums';
 export * from './lib/auth-interceptor';
 export * from './lib/auth-guard';
 export * from './lib/local-auth';
+export * from './lib/google-auth';
 export * from './lib/auth-tokens';
 export * from './lib/local-storage';
 export * from './lib/memory-storage';

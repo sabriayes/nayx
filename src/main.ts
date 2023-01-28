@@ -31,7 +31,7 @@ bootstrapApplication(AppComponent, {
 			},
 		},
 		provideNaxyLocalAuth({
-			baseURL: 'https://dev-api-sales-sense-backend.naylalabs.xyz',
+			baseURL: 'https://api.backend.com',
 		}),
 	],
 });

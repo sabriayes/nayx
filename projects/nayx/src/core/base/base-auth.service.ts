@@ -34,7 +34,7 @@ export class BaseAuthenticationService<A, Options extends AuthServiceOptions>
 	readonly tokens = inject(TokensService);
 	readonly http = inject(HttpClient);
 
-	readonly $account = new BehaviorSubject<A | undefined>(undefined);
+	readonly account$ = new BehaviorSubject<A | undefined>(undefined);
 	readonly context: HttpContext = new HttpContext().set(
 		IS_INTERCEPTORS_DISABLED,
 		false,
@@ -52,10 +52,6 @@ export class BaseAuthenticationService<A, Options extends AuthServiceOptions>
 		return `${this.options.baseURL}/${this.options.endpoints[endpoint]}`;
 	}
 
-	getAccount(): Observable<A | undefined> {
-		return this.$account.asObservable();
-	}
-
 	verifyAccount(): Observable<A | HttpErrorResponse> {
 		const { retryLimit } = this.options;
 		return this.http
@@ -64,7 +60,7 @@ export class BaseAuthenticationService<A, Options extends AuthServiceOptions>
 			})
 			.pipe(
 				retry(retryLimit),
-				tap((account: A) => this.$account.next(account)),
+				tap((account: A) => this.account$.next(account)),
 				catchError((err) => {
 					return throwError(() => err);
 				}),
@@ -77,7 +73,7 @@ export class BaseAuthenticationService<A, Options extends AuthServiceOptions>
 
 	signOut(): Observable<never> {
 		this.tokens.clear();
-		this.$account.next(undefined);
+		this.account$.next(undefined);
 
 		const hasSignOut = (): boolean =>
 			!!this.options.endpoints[AuthEndpoint.SIGN_OUT];
