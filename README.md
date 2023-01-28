@@ -383,9 +383,9 @@ const ROUTES = [
         path: 'required-some-props',
         conmponent: DashboardPageComponent,
         canActivate: [
-            // Oturum onaylansa bile {hasPersonalInfo} anahtarı 
+            // Oturum onaylansa bile {hasAddress} anahtarı 
             // true olmak zorunda.
-            authGuard(['/401'], ['hasPersonalInfo'])
+            authGuard(['/401'], (user: User) => !!user.hasAddress)
         ]
     }
 ]
