@@ -30,18 +30,19 @@ aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServic
 
 ```ts
 /**
- * Temel entegrasyon örneği. 
- * Konfügurasyon ve jeton saklamak için gereken bağımlıklar 
+ * Temel entegrasyon örneği.
+ * Konfügurasyon ve jeton saklamak için gereken bağımlıklar
  * modül içerisinde mevcuttur.
  */
-import { importProvidersFrom } from "@angular/core";
-import { LocalAuthenticationModule } from '@sabriayes/nayx';
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { provideNayxLocalAuth, authInterceptor } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(
-            LocalAuthenticationModule
-        )
+        provideHttpClient(withInterceptors([authInterceptor])),
+        provideNayxLocalAuth({
+            baseURL: 'https://api.backend.com'
+        }),
     ]
 });
 ```
@@ -102,14 +103,15 @@ aktarmanızı sağlar. Konfigürsayon tipi için bkz. `OTPAuthenticationServiceO
  * Konfügurasyon ve jeton saklamak için gereken bağımlıklar 
  * modül içerisinde mevcuttur.
  */
-import { importProvidersFrom } from "@angular/core";
-import { OTPAuthenticationModule } from '@sabriayes/nayx';
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { provideNayxLocalAuth, authInterceptor } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(
-            OTPAuthenticationModule
-        )
+        provideHttpClient(withInterceptors([authInterceptor])),
+        provideNayxOTPAuth({
+            baseURL: 'https://api.backend.com'
+        }),
     ]
 });
 ```
@@ -194,23 +196,16 @@ aktarmanızı sağlar.
  * Bu örnekte ACCESS_TOKEN jetonu {access_token} anahtarı ile depolanır.
  * NOT: Depolama yöntemi StorageService soyut sınıfı tarafından sağlanır
  */
-import { importProvidersFrom } from "@angular/core";
-import { AUTH_TOKENS_SERVICE_OTPIONS, AuthTokensModule, AuthToken } from '@sabriayes/nayx';
+import { provideNayxAuthTokens, AuthToken } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        {
-            provide: AUTH_TOKENS_SERVICE_OTPIONS,
-            useValue: {
-                keys: {
-                    [AuthToken.ACCESS_TOKEN]: 'access_token',
-                    [AuthToken.REFRESH_TOKEN]: 'refresh_token',
-                },
-            }
-        },
-        importProvidersFrom(
-            AuthTokensModule
-        )
+        provideNayxAuthTokens({
+            keys: {
+                [AuthToken.ACCESS_TOKEN]: 'access_token',
+                [AuthToken.REFRESH_TOKEN]: 'refresh_token',
+            },
+        })
     ]
 });
 ```
@@ -245,14 +240,11 @@ kullanabilirsiniz.
 ### Entegrasyon
 
 ```ts
-import { importProvidersFrom } from "@angular/core";
-import { LocalStorageModule } from '@sabriayes/nayx';
+import { providerNayxLocalStorage } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(
-            LocalStorageModule
-        )
+        providerNayxLocalStorage()
     ]
 });
 ```
@@ -286,14 +278,11 @@ kullanabilirsiniz.
 ### Entegrasyon
 
 ```ts
-import { importProvidersFrom } from "@angular/core";
-import { MemoryStorageModule } from '@sabriayes/nayx';
+import { provideNayxMemoryStorage } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(
-            MemoryStorageModule
-        )
+        provideNayxMemoryStorage()
     ]
 });
 ```
