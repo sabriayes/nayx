@@ -88,7 +88,7 @@ kullanabilirsiniz.
 Tarayıcının `window` nesnesine erişmek için **WINDOW** jetonunu kullanın.
 `window` nesnesinin bulunamadığı durumlarda hata fırlatır.
 
-## 🚚 Local Storage Injection Token
+## 🪙 Local Storage Injection Token
 
 👻 `Storage`\
 📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/tokens/README.md)
@@ -96,7 +96,7 @@ Tarayıcının `window` nesnesine erişmek için **WINDOW** jetonunu kullanın.
 Tarayıcının `localStorage`nesnesine erişmek için bu jetonu kullanın.
 `window` nesnesinin bulunamadığı durumlarda hata fırlatır.
 
-## 🚚 Auth Guard
+## ✋ Auth Guard
 
 📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-guard/README.md)
 
@@ -104,7 +104,7 @@ Tarayıcının `localStorage`nesnesine erişmek için bu jetonu kullanın.
 bağımlılığını kullanarak oturum bilgisini kontrol eder. Oturum açılmamış ise
 istenilen rotaya yönlendirme yapar.
 
-## 🚚 Auth Interceptor
+## 📝 Auth Interceptor
 
 📒 [Doküman](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-interceptor/README.md)
 

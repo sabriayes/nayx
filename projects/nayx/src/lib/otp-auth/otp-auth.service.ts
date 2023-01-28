@@ -12,7 +12,7 @@ import {
 import {
 	OTPAuthServiceOptions,
 	OTP_AUTH_SERVICE_OPTIONS,
-} from './options.const';
+} from '@nayx/otp-auth/options';
 import { catchError, Observable, retry, tap, throwError } from 'rxjs';
 
 @Injectable()

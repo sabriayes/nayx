@@ -9,7 +9,7 @@ import {
 import {
 	AUTH_TOKENS_SERVICE_OPTIONS,
 	AuthenticationTokensServiceOptions,
-} from './options.const';
+} from './options';
 
 @Injectable()
 export class AuthenticationTokensService

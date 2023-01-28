@@ -1,3 +1,3 @@
-export * from './options.const';
-export * from './local-auth.module';
 export * from './local-auth.service';
+export * from './options';
+export * from './provider';

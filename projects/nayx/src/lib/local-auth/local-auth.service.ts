@@ -8,10 +8,7 @@ import {
 	SigninCredentials,
 	BasicAuthResponse,
 } from '@nayx/core/index';
-import {
-	LocalAuthServiceOptions,
-	LOCAL_AUTH_SERVICE_OPTIONS,
-} from './options.const';
+import { LocalAuthServiceOptions, LOCAL_AUTH_SERVICE_OPTIONS } from './options';
 import { catchError, Observable, retry, tap, throwError } from 'rxjs';
 
 @Injectable()
@@ -26,6 +23,7 @@ export class LocalAuthenticationService<A, R extends BasicAuthResponse>
 	);
 
 	signIn(credentials: Partial<SigninCredentials>): Observable<R> {
+		console.log(this.options);
 		const { retryLimit } = this.options;
 		delete credentials.type;
 
