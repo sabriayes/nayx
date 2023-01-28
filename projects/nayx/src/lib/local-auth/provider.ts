@@ -13,7 +13,9 @@ import {
 	LocalAuthServiceOptions,
 } from '@nayx/local-auth/options';
 
-export const provideLocalAuth = (options?: Partial<LocalAuthServiceOptions>) =>
+export const provideNaxyLocalAuth = (
+	options?: Partial<LocalAuthServiceOptions>,
+) =>
 	makeEnvironmentProviders([
 		{
 			provide: LOCAL_AUTH_SERVICE_OPTIONS,
