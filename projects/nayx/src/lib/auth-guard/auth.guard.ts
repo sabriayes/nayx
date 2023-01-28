@@ -1,10 +1,10 @@
 import { Router, UrlTree } from '@angular/router';
 import { inject } from '@angular/core';
 import { LocalAuthService, TokensService, AuthToken } from '@nayx/core/index';
-import { catchError, iif, Observable, of, switchMap } from 'rxjs';
+import { catchError, iif, map, Observable, of, switchMap } from 'rxjs';
 
 type AuthGuardReturnType = () => Observable<boolean | UrlTree>;
-type PropertiesType<T> = (keyof T)[];
+type AccountValidatorFunc = <T>(account?: T) => boolean;
 
 /**
  * TODO: @sabriayes - Hesap doğrulama işlemi için ClassValidator kullanılmalı.
@@ -16,7 +16,7 @@ type PropertiesType<T> = (keyof T)[];
  * doğrulanır.
  *
  * @param to - Yönlendirme yapılacak olan yol
- * @param props - Kullanıcın hesap bilgisinde `true` olması gereken anahtarlar
+ * @param validatorFunc? - Hesap içeriğini doğrulayan fonksiyonu
  * @return Observable<boolean|UrlTree>
  *
  * @example
@@ -32,15 +32,13 @@ type PropertiesType<T> = (keyof T)[];
  */
 export function authGuard<T>(
 	to: unknown[],
-	props: PropertiesType<T> = [],
+	validatorFunc: AccountValidatorFunc = () => true,
 ): AuthGuardReturnType {
 	return function () {
 		const router = inject(Router);
 		const accessToken = inject(TokensService).get(AuthToken.ACCESS_TOKEN);
 
 		const generateUrlTree = () => of(router.createUrlTree(to));
-		const validateProps = (res: T) =>
-			props.every((prop) => res[prop]) ? of(true) : generateUrlTree();
 
 		return of(accessToken).pipe(
 			switchMap((accessToken: string | undefined) =>
@@ -49,7 +47,7 @@ export function authGuard<T>(
 					generateUrlTree(),
 					inject(LocalAuthService)
 						.verifyAccount()
-						.pipe(switchMap(validateProps)),
+						.pipe(map(validatorFunc<T>)),
 				),
 			),
 			catchError(generateUrlTree),
