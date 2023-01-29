@@ -33,7 +33,7 @@ export class GoogleAuthenticationService<A, R extends BasicAuthResponse>
 	extends BaseSocialAuthenticationService<A, GoogleAuthServiceOptions>
 	implements GoogleAuthService<A, R>, OnDestroy
 {
-	public init$ = new Subject<null>();
+	public init$ = new BehaviorSubject<null>(null);
 	public in$ = new BehaviorSubject<R | null>(null);
 	public out$ = new BehaviorSubject(null);
 	public error$ = new BehaviorSubject<Error | null>(null);

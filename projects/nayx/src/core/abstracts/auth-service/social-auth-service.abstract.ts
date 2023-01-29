@@ -6,7 +6,7 @@ export abstract class SocialAuthService<
 	T,
 	R extends BasicAuthResponse,
 > extends AuthService<T> {
-	abstract init$: Subject<null>;
+	abstract init$: BehaviorSubject<null>;
 	abstract in$: BehaviorSubject<R | null>;
 	abstract out$: BehaviorSubject<null>;
 	abstract error$: BehaviorSubject<Error | null>;
