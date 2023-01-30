@@ -6,7 +6,7 @@ import {
 	Input,
 	Output,
 } from '@angular/core';
-import { GoogleAuthService } from '@nayx/core/abstracts';
+import { GoogleAuthService } from '@nayx/core/index';
 import { take } from 'rxjs';
 
 type Type = 'icon' | 'standard';

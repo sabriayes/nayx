@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { NullInjectionError, SocialAuthServiceOptions } from '@nayx/core/index';
-import { BaseAuthenticationService } from '@nayx/core/base/base-auth.service';
-import { ProvideAuthService } from '@nayx/core/abstracts/auth-service';
+import { BaseAuthenticationService } from './base-auth.service';
+import { ProvidableAuthService } from '@nayx/core/abstracts/auth-service';
 import { from, iif, Observable, of, switchMap, throwError } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 
@@ -31,7 +31,7 @@ export class BaseSocialAuthenticationService<
 		Options extends SocialAuthServiceOptions,
 	>
 	extends BaseAuthenticationService<A, Options>
-	implements ProvideAuthService
+	implements ProvidableAuthService
 {
 	appendScript(id: string, scriptURL: string): Observable<void | Error> {
 		return of(inject(DOCUMENT)).pipe(

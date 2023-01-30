@@ -3,7 +3,7 @@ import {
 	GoogleAuthService,
 	StorageService,
 	TokensService,
-} from '@nayx/core/abstracts';
+} from '@nayx/core/index';
 import { AuthenticationTokensService } from '@nayx/auth-tokens';
 import { LocalStorageService } from '@nayx/local-storage';
 import {

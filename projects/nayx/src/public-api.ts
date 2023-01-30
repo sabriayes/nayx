@@ -5,6 +5,7 @@
 export * from './core/abstracts';
 export * from './core/models';
 export * from './core/enums';
+export * from './core/entities';
 export * from './lib/auth-interceptor';
 export * from './lib/auth-guard';
 export * from './lib/local-auth';
