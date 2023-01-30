@@ -6,7 +6,7 @@ export type GoogleAuthServiceOptions = SocialAuthServiceOptions;
 
 export const GOOGLE_AUTH_SERVICE_DEFAULT_OPTIONS: GoogleAuthServiceOptions = {
 	id: null,
-	scopes: [],
+	scopes: ['email', 'profile'],
 	retryLimit: 1,
 	baseURL: 'http://localhost',
 	endpoints: {

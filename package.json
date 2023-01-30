@@ -55,6 +55,7 @@
 		"@angular-eslint/template-parser": "15.1.0",
 		"@angular/cli": "~15.0.1",
 		"@angular/compiler-cli": "^15.0.0",
+		"@types/facebook-js-sdk": "^3.3.6",
 		"@types/google.accounts": "^0.0.5",
 		"@types/jasmine": "~4.3.0",
 		"@typescript-eslint/eslint-plugin": "5.44.0",
