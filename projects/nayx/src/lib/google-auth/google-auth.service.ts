@@ -13,15 +13,16 @@ import {
 	GoogleAuthServiceOptions,
 } from './options';
 import {
-	BehaviorSubject,
 	catchError,
+	finalize,
+	first,
+	map,
 	Observable,
 	retry,
 	Subject,
 	tap,
 	throwError,
 } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import CredentialResponse = google.accounts.id.CredentialResponse;
 
@@ -33,20 +34,33 @@ export class GoogleAuthenticationService<A, R extends BasicAuthResponse>
 	extends BaseSocialAuthenticationService<A, GoogleAuthServiceOptions>
 	implements GoogleAuthService<A, R>, OnDestroy
 {
-	public init$ = new BehaviorSubject<null>(null);
-	public in$ = new BehaviorSubject<R | null>(null);
-	public out$ = new BehaviorSubject(null);
-	public error$ = new BehaviorSubject<Error | null>(null);
+	public init$ = new Subject<void>();
+	public in$ = new Subject<R>();
+	public out$ = new Subject<void>();
+	public error$ = new Subject<Error>();
 	public override readonly options = inject<GoogleAuthServiceOptions>(
 		GOOGLE_AUTH_SERVICE_OPTIONS,
 	);
 
 	constructor() {
 		super();
-		const document = inject(DOCUMENT);
-		this.appendScript(document, PROVIDER_ID, API_URL).then(
-			this.initProvider.bind(this),
-		);
+		this.appendScript(PROVIDER_ID, API_URL)
+			.pipe(
+				first(),
+				finalize(this.init$.complete),
+				map(() =>
+					google.accounts.id.initialize({
+						callback: this.handleProviderCallback.bind(this),
+						client_id: this.options.id ?? '',
+						auto_select: false,
+						itp_support: false,
+					}),
+				),
+			)
+			.subscribe({
+				next: () => this.init$.next(),
+				error: (error) => this.error$.next(error),
+			});
 	}
 
 	ngOnDestroy() {
@@ -55,23 +69,6 @@ export class GoogleAuthenticationService<A, R extends BasicAuthResponse>
 		this.out$.complete();
 		this.error$.complete();
 		this.account$.complete();
-	}
-
-	private initProvider() {
-		try {
-			google.accounts.id.initialize({
-				client_id: this.options.id || '',
-				auto_select: false,
-				itp_support: false,
-				callback: this.handleProviderCallback.bind(this),
-			});
-		} catch (error) {
-			if (error instanceof Error) {
-				this.error$.next(error);
-			}
-		} finally {
-			this.init$.next(null);
-		}
 	}
 
 	private handleProviderCallback({ credential }: CredentialResponse) {
@@ -85,7 +82,7 @@ export class GoogleAuthenticationService<A, R extends BasicAuthResponse>
 
 	override signOut(): Observable<never> {
 		google.accounts.id.disableAutoSelect();
-		this.out$.next(null);
+		this.out$.next();
 		return super.signOut();
 	}
 

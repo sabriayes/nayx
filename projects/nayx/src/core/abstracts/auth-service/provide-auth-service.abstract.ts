@@ -1,7 +1,8 @@
+import { Observable } from 'rxjs';
+
 export abstract class ProvideAuthService {
 	abstract appendScript(
-		document: Document,
-		uniqId: string,
+		id: string,
 		scriptURL: string,
-	): Promise<null>;
+	): Observable<void | Error>;
 }

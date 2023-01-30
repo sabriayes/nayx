@@ -1,7 +1,29 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { NullInjectionError, SocialAuthServiceOptions } from '@nayx/core/index';
 import { BaseAuthenticationService } from '@nayx/core/base/base-auth.service';
-import { ProvideAuthService } from '@nayx/core/abstracts/auth-service/provide-auth-service.abstract';
+import { ProvideAuthService } from '@nayx/core/abstracts/auth-service';
+import { from, iif, Observable, of, switchMap, throwError } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+
+type AddScriptsArg = {
+	id: string;
+	scriptURL: string;
+	document: Document;
+};
+
+const addScriptTag = ({
+	id,
+	scriptURL,
+	document,
+}: AddScriptsArg): Promise<void> =>
+	new Promise((res) => {
+		const script = document.createElement('script');
+		script.async = true;
+		script.id = id;
+		script.onload = () => res();
+		script.src = scriptURL;
+		document.head.appendChild(script);
+	});
 
 @Injectable()
 export class BaseSocialAuthenticationService<
@@ -11,31 +33,22 @@ export class BaseSocialAuthenticationService<
 	extends BaseAuthenticationService<A, Options>
 	implements ProvideAuthService
 {
-	appendScript(
-		document: Document,
-		providerId: string,
-		apiURL: string,
-	): Promise<null> {
-		if (!apiURL || !providerId) {
-			return Promise.reject(new Error('Missing script options!'));
-		}
-
-		if (!document) {
-			return Promise.reject(new NullInjectionError('Document'));
-		}
-
-		if (document.getElementById(providerId)) {
-			return Promise.reject();
-		}
-
-		return new Promise((res) => {
-			const script = document.createElement('script');
-
-			script.async = true;
-			script.id = providerId;
-			script.onload = () => res(null);
-			script.src = apiURL;
-			document.head.appendChild(script);
-		});
+	appendScript(id: string, scriptURL: string): Observable<void | Error> {
+		return of(inject(DOCUMENT)).pipe(
+			switchMap((document) =>
+				iif(
+					() => !document,
+					throwError(() => new NullInjectionError('Document')),
+					iif(
+						() => !scriptURL || !id,
+						throwError(() => new Error('Missing script options!')),
+						of(document),
+					),
+				),
+			),
+			switchMap((document) =>
+				from(addScriptTag({ document, id, scriptURL })),
+			),
+		);
 	}
 }
