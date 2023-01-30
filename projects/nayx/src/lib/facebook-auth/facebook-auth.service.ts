@@ -95,9 +95,12 @@ export class FacebookAuthenticationService<A, R extends BasicAuthResponse>
 	}
 
 	override signOut(): Observable<never> {
-		google.accounts.id.disableAutoSelect();
-		this.out$.next();
-		return super.signOut();
+		return new Observable<never>((observer) => {
+			FB.logout(() => observer.next());
+		}).pipe(
+			tap(() => this.out$.next()),
+			switchMap(() => super.signOut()),
+		);
 	}
 
 	signIn(authToken: string): Observable<R> {
