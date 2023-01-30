@@ -1,1 +1,1 @@
-export * from './storage-service.abstract';
+export * from './base-storage-service.abstract';

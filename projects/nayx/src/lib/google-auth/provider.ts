@@ -1,26 +1,26 @@
 import { makeEnvironmentProviders } from '@angular/core';
 import {
-	LocalAuthService,
+	GoogleAuthService,
 	StorageService,
 	TokensService,
 } from '@nayx/core/index';
 import { AuthenticationTokensService } from '@nayx/auth-tokens';
 import { LocalStorageService } from '@nayx/local-storage';
-import { LocalAuthenticationService } from '@nayx/local-auth/local-auth.service';
 import {
-	LOCAL_AUTH_SERVICE_DEFAULT_OPTIONS,
-	LOCAL_AUTH_SERVICE_OPTIONS,
-	LocalAuthServiceOptions,
-} from '@nayx/local-auth/options';
+	GOOGLE_AUTH_SERVICE_DEFAULT_OPTIONS,
+	GOOGLE_AUTH_SERVICE_OPTIONS,
+	GoogleAuthServiceOptions,
+} from '@nayx/google-auth/options';
+import { GoogleAuthenticationService } from '@nayx/google-auth/google-auth.service';
 
-export const provideNaxyLocalAuth = (
-	options?: Partial<LocalAuthServiceOptions>,
+export const provideNaxyGoogleAuth = (
+	options?: Partial<GoogleAuthServiceOptions>,
 ) =>
 	makeEnvironmentProviders([
 		{
-			provide: LOCAL_AUTH_SERVICE_OPTIONS,
+			provide: GOOGLE_AUTH_SERVICE_OPTIONS,
 			useValue: Object.assign(
-				LOCAL_AUTH_SERVICE_DEFAULT_OPTIONS,
+				GOOGLE_AUTH_SERVICE_DEFAULT_OPTIONS,
 				options,
 			),
 		},
@@ -33,7 +33,7 @@ export const provideNaxyLocalAuth = (
 			useClass: LocalStorageService,
 		},
 		{
-			provide: LocalAuthService,
-			useClass: LocalAuthenticationService,
+			provide: GoogleAuthService,
+			useClass: GoogleAuthenticationService,
 		},
 	]);

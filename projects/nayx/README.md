@@ -9,7 +9,7 @@ gerekenleri aşağıdaki bölümde bulabilirsiniz.
 
 ## 🔐 Local Authentication Service
 
-📦 `LocalAuthenticationModule`\
+📦 `provideNayxLocalAuth`\
 👻 `LocalAuthService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
 
@@ -28,7 +28,7 @@ aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServic
 
 ## 📨 OTP Authentication Service
 
-📦 `OTPAuthenticationModule`\
+📦 `provideNayxOTPAuth`\
 👻 `OTPAuthService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/otp-auth/README.md)
 
@@ -46,9 +46,34 @@ metodu ile süreci tamamlamanız gerekir.
 `OTP_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
 aktarmanızı sağlar. Konfigürsayon tipi için bkz. `OTPAuthenticationServiceOptions`
 
+## 🔑 Google Authentication Service
+
+📦 `provideNayxGoogleAuth`\
+👻 `GoogleAuthService`\
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/google-auth/README.md)
+
+Google Auth API ile oturum açma işlemleri için bu servisi kullanın.
+`.signIn({...})` metodunu bu servis ile kullanamazsınız. Google Sign-In Button
+için `<nayx-google-signin-button>` bileşenin kullanın.
+
+`GOOGLE_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
+aktarmanızı sağlar. Konfigürsayon tipi için bkz. `GoogleAuthenticationServiceOptions`
+
+## 🔑 Facebook Authentication Service
+
+📦 `provideNayxFacebookAuth`\
+👻 `FacebookAuthService`\
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/facebook-auth/README.md)
+
+Facebook JS SDK ile oturum açma işlemleri için bu servisi kullanın.
+`.emitSigIn()` metodunu ile giriş işlemini başlatabilirsiniz.
+
+`FACEBOOK_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
+aktarmanızı sağlar. Konfigürsayon tipi için bkz. `FacebookAuthenticationServiceOptions`
+
 ## 🔑 Authentication Tokens Service
 
-📦 `AuthTokensModule`\
+📦 `provideNayxAuthTokens`\
 👻 `TokensService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-tokens/README.md)
 
@@ -62,7 +87,7 @@ aktarmanızı sağlar.
 
 ## 🚛 Local Storage Service
 
-📦 `LocalStorageModule`\
+📦 `provideNayxLocalStorage`\
 👻 `StorageService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-storage/README.md)
 
@@ -72,7 +97,7 @@ kullanabilirsiniz.
 
 ## 💾 Memory Storage Service
 
-📦 `MemoryStorageModule`\
+📦 `provideNayxMemoryStorage`\
 👻 `StorageService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/memory-storage/README.md)
 

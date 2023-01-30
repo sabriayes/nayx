@@ -3,6 +3,7 @@
 	"description": "Some libraries needed by Naylalabs team to develop Angular app",
 	"version": "0.0.4",
 	"license": "MIT",
+	"keywords": ["angular", "typescript", "naylalabs"],
 	"author": {
 		"name": "Sabri Ayeş",
 		"email": "sabri@naylalabs.com",

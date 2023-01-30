@@ -1,26 +1,26 @@
 import { makeEnvironmentProviders } from '@angular/core';
 import {
-	LocalAuthService,
+	FacebookAuthService,
 	StorageService,
 	TokensService,
 } from '@nayx/core/index';
 import { AuthenticationTokensService } from '@nayx/auth-tokens';
 import { LocalStorageService } from '@nayx/local-storage';
-import { LocalAuthenticationService } from '@nayx/local-auth/local-auth.service';
 import {
-	LOCAL_AUTH_SERVICE_DEFAULT_OPTIONS,
-	LOCAL_AUTH_SERVICE_OPTIONS,
-	LocalAuthServiceOptions,
-} from '@nayx/local-auth/options';
+	FACEBOOK_AUTH_SERVICE_DEFAULT_OPTIONS,
+	FACEBOOK_AUTH_SERVICE_OPTIONS,
+	FacebookAuthServiceOptions,
+} from '@nayx/facebook-auth/options';
+import { FacebookAuthenticationService } from '@nayx/facebook-auth/facebook-auth.service';
 
-export const provideNaxyLocalAuth = (
-	options?: Partial<LocalAuthServiceOptions>,
+export const provideNaxyFacebookAuth = (
+	options?: Partial<FacebookAuthServiceOptions>,
 ) =>
 	makeEnvironmentProviders([
 		{
-			provide: LOCAL_AUTH_SERVICE_OPTIONS,
+			provide: FACEBOOK_AUTH_SERVICE_OPTIONS,
 			useValue: Object.assign(
-				LOCAL_AUTH_SERVICE_DEFAULT_OPTIONS,
+				FACEBOOK_AUTH_SERVICE_DEFAULT_OPTIONS,
 				options,
 			),
 		},
@@ -33,7 +33,7 @@ export const provideNaxyLocalAuth = (
 			useClass: LocalStorageService,
 		},
 		{
-			provide: LocalAuthService,
-			useClass: LocalAuthenticationService,
+			provide: FacebookAuthService,
+			useClass: FacebookAuthenticationService,
 		},
 	]);

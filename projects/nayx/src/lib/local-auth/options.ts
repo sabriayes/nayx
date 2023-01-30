@@ -15,7 +15,7 @@ export const LOCAL_AUTH_SERVICE_DEFAULT_OPTIONS: LocalAuthServiceOptions = {
 };
 
 export const LOCAL_AUTH_SERVICE_OPTIONS: InjectionToken<LocalAuthServiceOptions> =
-	new InjectionToken('LOCAL_AUTH_SERVICE_OPTIONS_OPTIONS', {
+	new InjectionToken('LOCAL_AUTH_SERVICE_OPTIONS', {
 		providedIn: 'root',
 		factory: () => LOCAL_AUTH_SERVICE_DEFAULT_OPTIONS,
 	});

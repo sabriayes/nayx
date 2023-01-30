@@ -9,7 +9,7 @@ gerekenleri aşağıdaki bölümde bulabilirsiniz.
 
 ## 🔐 Local Authentication Service
 
-📦 `LocalAuthenticationModule`\
+📦 `provideNayxLocalAuth`\
 👻 `LocalAuthService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-auth/README.md)
 
@@ -77,7 +77,7 @@ export class SignInPageComponent {
 
 ## 📨 OTP Authentication Service
 
-📦 `OTPAuthenticationModule`\
+📦 `provideNayxOTPAuth`\
 👻 `OTPAuthService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/otp-auth/README.md)
 
@@ -174,9 +174,113 @@ export class VeriyfOTPPageComponent {
 }
 ```
 
+## 🔑 Google Authentication Service
+
+📦 `provideNayxGoogleAuth`\
+👻 `GoogleAuthService`\
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/google-auth/README.md)
+
+Google Auth API ile oturum açma işlemleri için bu servisi kullanın. 
+`.signIn({...})` metodunu bu servis ile kullanamazsınız. Google Sign-In Button
+için `<nayx-google-signin-button>` bileşenin kullanın.
+
+`GOOGLE_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
+aktarmanızı sağlar. Konfigürsayon tipi için bkz. `GoogleAuthenticationServiceOptions`
+
+### Entegrasyon
+
+```ts
+import { provideNayxGoogleAuth } from '@sabriayes/nayx';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        provideNayxGoogleAuth({
+            id: 'GOOGLE_CLIENT_ID',
+            scopes: ['email', 'profile'],
+            baseURL: 'https://api.backend.com'
+        })
+    ]
+});
+```
+
+### Temel Kullanım
+
+```ts
+import { Component, inject, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { GoogleAuthService } from "@sabriayes/nayx";
+import { filter } from 'rxjs';
+
+@Component({
+    selector: 'app-login-page',
+    template: `<nayx-google-sigin-button></nayx-google-singin-button>`
+})
+export class LoginPageComponent implements OnInit {
+    router = inject(Router);
+    googleAuthService = inject<GoogleAuthService>(GoogleAuthService);
+
+    ngOnInit() {
+        this.googleAuthService.in$.pipe(filter(Boolean)).subscribe(
+            () => this.router.navigate(['/dashboard'])
+        );
+    }
+}
+```
+
+## 🔑 Facebook Authentication Service
+
+📦 `provideNayxFacebookAuth`\
+👻 `FacebookAuthService`\
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/facebook-auth/README.md)
+
+Facebook JS SDK ile oturum açma işlemleri için bu servisi kullanın.
+`.emitSigIn()` metodunu ile giriş işlemini başlatabilirsiniz.
+
+`FACEBOOK_AUTH_SERVICE_OPTIONS` jetonu servis konfigürsayonlarını bağımlılık ağacına
+aktarmanızı sağlar. Konfigürsayon tipi için bkz. `FacebookAuthenticationServiceOptions`
+
+### Entegrasyon
+
+```ts
+import { provideNayxFacebookAuth } from '@sabriayes/nayx';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        provideNayxFacebookAuth({
+            id: 'FACEBOOK_APP_ID',
+            scopes: ['email', 'basic_profile'],
+            baseURL: 'https://api.backend.com'
+        })
+    ]
+});
+```
+
+### Temel Kullanım
+
+```ts
+import { Component, inject, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FacebookAuthService } from "@sabriayes/nayx";
+import { filter } from 'rxjs';
+
+@Component({})
+export class LoginPageComponent implements OnInit {
+    router = inject(Router);
+    facebookAuthService = inject<FacebookAuthService>(FacebookAuthService);
+    
+    signIn = () => this.facebookAuthService.emitSignIn();
+
+    ngOnInit() {
+        this.facebookAuthService.in$.pipe(filter(Boolean)).subscribe(
+            () => this.router.navigate(['/dashboard'])
+        );
+    }
+}
+```
+
 ## 🔑 Authentication Tokens Service
 
-📦 `AuthTokensModule`\
+📦 `provideNayxAuthTokens`\
 👻 `TokensService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/auth-tokens/README.md)
 
@@ -213,7 +317,7 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import {Component, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { TokensService } from "@sabriayes/nayx";
 
 @Component({})
@@ -229,7 +333,7 @@ export class SomePageComponent implements OnInit {
 
 ## 🚛 Local Storage Service
 
-📦 `LocalStorageModule`\
+📦 `provideNayxLocalStorage`\
 👻 `StorageService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/local-storage/README.md)
 
@@ -252,7 +356,7 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import {Component, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { StorageService } from "@sabriayes/nayx";
 
 @Component({})
@@ -267,7 +371,7 @@ export class SomePageComponent implements OnInit {
 
 ## 💾 Memory Storage Service
 
-📦 `MemoryStorageModule`\
+📦 `provideNayxMemoryStorage`\
 👻 `StorageService`\
 📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/memory-storage/README.md)
 

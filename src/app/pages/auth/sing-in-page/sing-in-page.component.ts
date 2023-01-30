@@ -1,3 +1,4 @@
+/// <reference types="google.accounts" />
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
