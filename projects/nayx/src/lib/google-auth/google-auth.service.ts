@@ -86,13 +86,13 @@ export class GoogleAuthenticationService<A, R extends BasicAuthResponse>
 		return super.signOut();
 	}
 
-	signIn(idToken: string): Observable<R> {
+	signIn(authToken: string): Observable<R> {
 		const { retryLimit } = this.options;
 
 		return this.http
 			.post<R>(
 				this.getEndpoint(AuthEndpoint.SIGN_IN),
-				{ idToken },
+				{ authToken },
 				{ context: this.context },
 			)
 			.pipe(
