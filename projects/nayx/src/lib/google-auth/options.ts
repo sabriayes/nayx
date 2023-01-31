@@ -8,6 +8,7 @@ export const GOOGLE_AUTH_SERVICE_DEFAULT_OPTIONS: GoogleAuthServiceOptions = {
 	id: null,
 	scopes: ['email', 'profile'],
 	retryLimit: 1,
+	requestKey: 'id_token',
 	baseURL: 'http://localhost',
 	endpoints: {
 		[AuthEndpoint.SIGN_IN]: 'auth', // METHOD: POST

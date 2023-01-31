@@ -1,31 +1,18 @@
 /// <reference types="facebook-js-sdk" />
 
 import { inject, Injectable, OnDestroy } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { filter, finalize, first, map, Observable, switchMap, tap } from 'rxjs';
 import {
 	BasicAuthResponse,
 	BaseSocialAuthenticationService,
-	AuthEndpoint,
-	AuthToken,
 	FacebookAuthService,
 } from '@nayx/core/index';
 import {
 	FacebookAuthServiceOptions,
 	FACEBOOK_AUTH_SERVICE_OPTIONS,
 } from './options';
-import {
-	BehaviorSubject,
-	catchError,
-	filter,
-	finalize,
-	first,
-	map,
-	Observable,
-	retry,
-	switchMap,
-	tap,
-	throwError,
-} from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import StatusResponse = facebook.StatusResponse;
 
 const PROVIDER_ID = 'NAXYFACEBOOK';
@@ -33,13 +20,9 @@ const API_URL = 'https://connect.facebook.net/%LOCALE%/sdk.js';
 
 @Injectable()
 export class FacebookAuthenticationService<A, R extends BasicAuthResponse>
-	extends BaseSocialAuthenticationService<A, FacebookAuthServiceOptions>
+	extends BaseSocialAuthenticationService<A, R, FacebookAuthServiceOptions>
 	implements FacebookAuthService<A, R>, OnDestroy
 {
-	public init$ = new BehaviorSubject<boolean>(false);
-	public in$ = new BehaviorSubject<R | void>(undefined);
-	public out$ = new BehaviorSubject<void>(undefined);
-	public error$ = new BehaviorSubject<Error | void>(undefined);
 	public override readonly options = inject<FacebookAuthServiceOptions>(
 		FACEBOOK_AUTH_SERVICE_OPTIONS,
 	);
@@ -69,11 +52,8 @@ export class FacebookAuthenticationService<A, R extends BasicAuthResponse>
 	}
 
 	ngOnDestroy() {
-		this.init$.complete();
 		this.in$.complete();
-		this.out$.complete();
-		this.error$.complete();
-		this.account$.complete();
+		this.completeSubjects();
 	}
 
 	emitSignIn() {
@@ -82,9 +62,11 @@ export class FacebookAuthenticationService<A, R extends BasicAuthResponse>
 		)
 			.pipe(
 				filter(({ status }) => status === 'connected'),
-				switchMap(({ authResponse }) => {
-					return this.signIn(authResponse.accessToken);
-				}),
+				tap(() => this.pending$.next(true)),
+				switchMap(({ authResponse }) =>
+					this.signIn(authResponse.accessToken),
+				),
+				finalize(() => this.pending$.next(false)),
 			)
 			.subscribe({
 				next: (response: R) => {
@@ -98,29 +80,10 @@ export class FacebookAuthenticationService<A, R extends BasicAuthResponse>
 		return new Observable<never>((observer) => {
 			FB.logout(() => observer.next());
 		}).pipe(
+			tap(() => this.pending$.next(true)),
 			tap(() => this.out$.next()),
 			switchMap(() => super.signOut()),
+			finalize(() => this.pending$.next(false)),
 		);
-	}
-
-	signIn(authToken: string): Observable<R> {
-		const { retryLimit } = this.options;
-
-		return this.http
-			.post<R>(
-				this.getEndpoint(AuthEndpoint.SIGN_IN),
-				{ authToken },
-				{ context: this.context },
-			)
-			.pipe(
-				retry(retryLimit),
-				tap((res) => {
-					this.tokens.set(AuthToken.ACCESS_TOKEN, res.accessToken);
-					this.tokens.set(AuthToken.REFRESH_TOKEN, res.refreshToken);
-				}),
-				catchError((err) => {
-					return throwError(() => err);
-				}),
-			);
 	}
 }

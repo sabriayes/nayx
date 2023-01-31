@@ -7,6 +7,7 @@ import {
 	inject,
 	Input,
 	Output,
+	Renderer2,
 } from '@angular/core';
 import { GoogleAuthService } from '@nayx/core/index';
 import { filter, take } from 'rxjs';
@@ -24,6 +25,8 @@ type LogoAlignment = 'left' | 'center';
 	standalone: true,
 })
 export class GoogleSigninButtonDirective {
+	private readonly renderer2 = inject(Renderer2);
+
 	@Output() buttonClick = new EventEmitter<void>();
 
 	@Input() type: Type = 'icon';

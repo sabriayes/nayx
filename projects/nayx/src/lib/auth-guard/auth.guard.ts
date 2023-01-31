@@ -26,7 +26,7 @@ type AccountValidatorFunc = <T>(account?: T) => boolean;
  *      component: DashboardComponent,
  *      canActivate: [
  *          authGuard<Account>(
- *              ['/auth],
+ *              ['/auth'],
  *              (user: User) => user.isProfileComplete
  *          )
  *      ]

@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { GoogleSigninButtonDirective } from '@nayx/google-auth';
 import { AuthFacadeService } from '@app/services/auth-facade.service';
 
 @Component({
-	selector: 'app-sing-in-page',
+	selector: 'app-sign-in-page',
 	standalone: true,
-	templateUrl: './sing-in-page.component.html',
-	styleUrls: ['./sing-in-page.component.scss'],
+	templateUrl: './sign-in-page.component.html',
+	styleUrls: ['./sign-in-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CommonModule, GoogleSigninButtonDirective],
+	imports: [GoogleSigninButtonDirective],
 })
-export class SingInPageComponent {
+export class SignInPageComponent {
 	public readonly authFacade = inject(AuthFacadeService);
 
 	constructor() {
@@ -21,7 +20,9 @@ export class SingInPageComponent {
 	public signInWithLocal() {
 		this.authFacade
 			.signInWithLocal('user@naylalabs.com', 'PassWorD2023*')
-			.subscribe(() => {});
+			.subscribe(() => {
+				console.log('Succeeded!');
+			});
 	}
 
 	public signInWithFacebook() {

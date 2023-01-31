@@ -17,8 +17,8 @@ function cloneRequest(
 
 /**
  * Mecvut HTTP çağrısını modifiye eder. Çağrı başlığına **Authorization**
- * anahtarını **Bearer** yöntemi ile ekler. **IS_INTERCEPTORS_ENABLED** bilgisi
- * çağrı context'inde yoksa herhangi bir değişkilik yapmaz.
+ * anahtarını **Bearer** yöntemi ile ekler. **IS_INTERCEPTORS_DISABLED** bilgisi
+ * çağrı context'inde varsa herhangi bir değişkilik yapmaz.
  * @param req - Mevcut HTTP çağrısı
  * @param next
  */

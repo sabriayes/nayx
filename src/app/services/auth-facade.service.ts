@@ -26,10 +26,14 @@ export class AuthFacadeService {
 	private readonly authLocal = inject(LocalAuthService);
 	private readonly authGoogle = inject(GoogleAuthService);
 	private readonly authFacebook = inject(FacebookAuthService);
+	private $isLoading = new BehaviorSubject<boolean>(false);
 
 	private socialIn$ = merge(this.authGoogle.in$, this.authFacebook.in$);
-
-	public isLoading$ = new BehaviorSubject<boolean>(false);
+	public isLoading$ = merge(
+		this.$isLoading,
+		this.authGoogle.pending$,
+		this.authFacebook.pending$,
+	);
 
 	public verifiedAccount$: Observable<User | undefined> = merge(
 		this.authLocal.account$,
@@ -45,14 +49,14 @@ export class AuthFacadeService {
 			.pipe(
 				filter(Boolean),
 				switchMap(() => this.authLocal.verifyAccount()),
-				finalize(() => this.isLoading$.next(false)),
+				finalize(() => this.$isLoading.next(false)),
 			)
 			.subscribe(() => this.redirectTo());
 	}
 
 	signInWithLocal(email: string, password: string): Observable<User> {
 		return of(null).pipe(
-			tap(() => this.isLoading$.next(true)),
+			tap(() => this.$isLoading.next(true)),
 			switchMap(() =>
 				this.authLocal.signIn({
 					type: 'email',
@@ -60,7 +64,7 @@ export class AuthFacadeService {
 					password,
 				}),
 			),
-			finalize(() => this.isLoading$.next(false)),
+			finalize(() => this.$isLoading.next(false)),
 			tap(() => this.redirectTo()),
 		);
 	}
