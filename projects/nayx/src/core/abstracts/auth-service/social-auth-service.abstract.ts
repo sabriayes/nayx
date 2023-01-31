@@ -10,5 +10,6 @@ export abstract class SocialAuthService<
 	abstract in$: BehaviorSubject<R | void>;
 	abstract out$: BehaviorSubject<void>;
 	abstract error$: BehaviorSubject<Error | void>;
+	abstract pending$: BehaviorSubject<boolean>;
 	abstract signIn(authToken: string): Observable<R>;
 }

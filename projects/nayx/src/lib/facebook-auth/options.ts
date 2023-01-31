@@ -13,6 +13,7 @@ export const FACEBOOK_AUTH_SERVICE_DEFAULT_OPTIONS: FacebookAuthServiceOptions =
 		scopes: ['email', 'public_profile'],
 		locale: 'en_US',
 		version: 'v10.0',
+		requestKey: 'auth_token',
 		retryLimit: 1,
 		baseURL: 'http://localhost',
 		endpoints: {

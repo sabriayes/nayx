@@ -10,4 +10,5 @@ export type SocialAuthServiceOptions = AuthServiceOptions &
 	Readonly<{
 		id: string | null;
 		scopes: string[];
+		requestKey: string;
 	}>;

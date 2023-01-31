@@ -1,3 +1,5 @@
+/// <reference types="google.accounts" />
+
 import {
 	Directive,
 	ElementRef,
@@ -5,9 +7,10 @@ import {
 	inject,
 	Input,
 	Output,
+	Renderer2,
 } from '@angular/core';
 import { GoogleAuthService } from '@nayx/core/index';
-import { take } from 'rxjs';
+import { filter, take } from 'rxjs';
 
 type Type = 'icon' | 'standard';
 type Size = 'small' | 'medium' | 'large';
@@ -22,6 +25,8 @@ type LogoAlignment = 'left' | 'center';
 	standalone: true,
 })
 export class GoogleSigninButtonDirective {
+	private readonly renderer2 = inject(Renderer2);
+
 	@Output() buttonClick = new EventEmitter<void>();
 
 	@Input() type: Type = 'icon';
@@ -37,18 +42,20 @@ export class GoogleSigninButtonDirective {
 		const { nativeElement } = inject(ElementRef);
 		const googleAuthService = inject(GoogleAuthService, { optional: true });
 
-		googleAuthService?.init$.pipe(take(1)).subscribe(() => {
-			google.accounts.id.renderButton(nativeElement, {
-				type: this.type,
-				size: this.size,
-				text: this.text,
-				width: this.width,
-				shape: this.shape,
-				theme: this.theme,
-				logo_alignment: this.logoAlignment,
-				locale: this.locale,
-				click_listener: () => this.buttonClick.emit(),
+		googleAuthService?.init$
+			.pipe(filter(Boolean), take(1))
+			.subscribe(() => {
+				google.accounts.id.renderButton(nativeElement, {
+					type: this.type,
+					size: this.size,
+					text: this.text,
+					width: this.width,
+					shape: this.shape,
+					theme: this.theme,
+					logo_alignment: this.logoAlignment,
+					locale: this.locale,
+					click_listener: () => this.buttonClick.emit(),
+				});
 			});
-		});
 	}
 }
