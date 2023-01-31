@@ -31,7 +31,7 @@ export class GoogleAuthenticationService<A, R extends BasicAuthResponse>
 		this.appendScript(PROVIDER_ID, API_URL)
 			.pipe(
 				first(),
-				finalize(this.init$.complete),
+				finalize(() => this.init$.complete()),
 				map(() =>
 					google.accounts.id.initialize({
 						callback: this.handleProviderCallback.bind(this),

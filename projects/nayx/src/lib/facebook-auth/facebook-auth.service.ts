@@ -34,7 +34,7 @@ export class FacebookAuthenticationService<A, R extends BasicAuthResponse>
 		this.appendScript(PROVIDER_ID, API_URL.replace('%LOCALE%', locale))
 			.pipe(
 				first(),
-				finalize(this.init$.complete),
+				finalize(() => this.init$.complete()),
 				map(() =>
 					FB.init({
 						appId: id ?? '',
