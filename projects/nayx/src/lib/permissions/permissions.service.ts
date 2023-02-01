@@ -1,8 +1,4 @@
-import {
-	GrantType,
-	Permission,
-	PermissionsService,
-} from '@nayx/core/abstracts';
+import { AccountPermissionService, Permission } from '@nayx/core/abstracts';
 import {
 	BehaviorSubject,
 	catchError,
@@ -18,23 +14,26 @@ import {
 	AccountPermissionServiceOptions,
 } from '@nayx/permissions/options';
 
-export class AccountPermissionsService extends PermissionsService {
+export class AccountPermissionsService<
+	K,
+	P extends keyof never = never,
+> extends AccountPermissionService<K, P> {
 	public http = inject(HttpClient);
-	public permissions$ = new BehaviorSubject<Permission[]>([]);
+	public permissions$ = new BehaviorSubject<Permission<P>[]>([]);
 	public options = inject<AccountPermissionServiceOptions>(
 		ACCOUNT_PERMISSIONS_SERVICE_OPTIONS,
 	);
 
-	import(permissions: Permission[]): void {
+	import(permissions: Permission<P>[]): void {
 		this.permissions$.next(permissions);
 	}
 
-	importLazy(): Observable<Permission[]> {
+	importLazy(): Observable<Permission<P>[]> {
 		const { retryLimit } = this.options;
 
-		return this.http.get<Permission[]>(this.options.apiURL).pipe(
+		return this.http.get<Permission<P>[]>(this.options.apiURL).pipe(
 			retry(retryLimit),
-			tap((permissions: Permission[]) =>
+			tap((permissions: Permission<P>[]) =>
 				this.permissions$.next(permissions),
 			),
 			catchError((err) => {
@@ -44,16 +43,16 @@ export class AccountPermissionsService extends PermissionsService {
 		);
 	}
 
-	remove(scopes: string[]): void {
+	remove(scopes: K[]): void {
 		const permissions = this.permissions$.value;
 		this.permissions$.next(
-			permissions.filter((item) => !scopes.includes(item.scope)),
+			permissions.filter((item) => !scopes.includes(item.scope as K)),
 		);
 	}
 
-	add(newPermission: Permission): void {
+	add(newPermission: Permission<P>): void {
 		const permissions = this.permissions$.value;
-		const foundSameItem: Permission | undefined = permissions.find(
+		const foundSameItem: Permission<P> | undefined = permissions.find(
 			(item) => item.scope === newPermission.scope,
 		);
 		if (!foundSameItem) {
@@ -64,9 +63,9 @@ export class AccountPermissionsService extends PermissionsService {
 		this.permissions$.next([...permissions]);
 	}
 
-	check(scope: string): Record<GrantType, boolean> {
+	check(scope: K): Permission<P>['grants'] {
 		const permissions = this.permissions$.value;
-		const foundPermission: Permission | undefined = permissions.find(
+		const foundPermission: Permission<P> | undefined = permissions.find(
 			(item) => item.scope === scope,
 		);
 		if (foundPermission) {
@@ -78,7 +77,7 @@ export class AccountPermissionsService extends PermissionsService {
 			hasRead: false,
 			hasUpdate: false,
 			hasDelete: false,
-		};
+		} as Permission<P>['grants'];
 	}
 
 	clear() {
@@ -92,23 +91,16 @@ export class AccountPermissionsService extends PermissionsService {
  *      path: 'dashboard',
  *      component: DashboardPageComponent,
  *      canActivate: [
- *           permissionSome(['dashboard', 'users']),
- *           permissionSome(['dashboard', 'users'], 'hasAccess'),
- *          permissionSome({
- *              dashboard: ['hasAccess', 'hasRead'],
- *              users: ['hasAccess'],
- *          }),
  *          permissionOnly(hasAny('dashboard')),
+ *          permissionExpect(hasAny('dashboard')),
  *          permissionAny(
  *              hasAccess('dashboard),
  *              hasRead
  *          )
- *          permissionSome(
+ *          permissionEvery(
  *              hasAccess('dashboard'),
  *              hasRead(['user', 'books')
  *          ),
- *
- *
  *      ]
  *  ]
  */
