@@ -5,6 +5,8 @@
     "useTabs": true,
     "printWidth": 80,
     "singleAttributePerLine": true,
-    "pluginSearchDirs": false,
-    "plugins": []
+	"pluginSearchDirs": false,
+	"plugins": [
+		"prettier-plugin-tailwindcss"
+	]
 }

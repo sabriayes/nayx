@@ -95,7 +95,7 @@ export class AccountPermissionsService<
  *          permissionExpect(hasAny('dashboard')),
  *          permissionAny(
  *              hasAccess('dashboard),
- *              hasRead
+ *              hasRead('dashboard'),
  *          )
  *          permissionEvery(
  *              hasAccess('dashboard'),
