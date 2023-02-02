@@ -152,7 +152,7 @@ export class SignInPageComponent {
 }
 
 @Component({})
-export class VeriyfOTPPageComponent {
+export class VerifyOTPPageComponent {
     router = inject(Router);
     authService = inject<
         OTPAuthService<User, SignInResponse, VerifyOTPResponse>
