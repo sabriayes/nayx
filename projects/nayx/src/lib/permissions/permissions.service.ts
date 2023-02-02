@@ -15,25 +15,24 @@ import {
 } from '@nayx/permissions/options';
 
 export class AccountPermissionsService<
-	K,
-	P extends keyof never = never,
-> extends AccountPermissionService<K, P> {
+	K extends string = never,
+> extends AccountPermissionService<K> {
 	public http = inject(HttpClient);
-	public permissions$ = new BehaviorSubject<Permission<P>[]>([]);
+	public permissions$ = new BehaviorSubject<Permission<K>[]>([]);
 	public options = inject<AccountPermissionServiceOptions>(
 		ACCOUNT_PERMISSIONS_SERVICE_OPTIONS,
 	);
 
-	import(permissions: Permission<P>[]): void {
+	import(permissions: Permission<K>[]): void {
 		this.permissions$.next(permissions);
 	}
 
-	importLazy(): Observable<Permission<P>[]> {
+	importLazy(): Observable<Permission<K>[]> {
 		const { retryLimit } = this.options;
 
-		return this.http.get<Permission<P>[]>(this.options.apiURL).pipe(
+		return this.http.get<Permission<K>[]>(this.options.apiURL).pipe(
 			retry(retryLimit),
-			tap((permissions: Permission<P>[]) =>
+			tap((permissions: Permission<K>[]) =>
 				this.permissions$.next(permissions),
 			),
 			catchError((err) => {
@@ -50,9 +49,9 @@ export class AccountPermissionsService<
 		);
 	}
 
-	add(newPermission: Permission<P>): void {
+	add(newPermission: Permission<K>): void {
 		const permissions = this.permissions$.value;
-		const foundSameItem: Permission<P> | undefined = permissions.find(
+		const foundSameItem: Permission<K> | undefined = permissions.find(
 			(item) => item.scope === newPermission.scope,
 		);
 		if (!foundSameItem) {
@@ -63,9 +62,9 @@ export class AccountPermissionsService<
 		this.permissions$.next([...permissions]);
 	}
 
-	check(scope: K): Permission<P>['grants'] {
+	check(scope: K): Permission<K>['grants'] {
 		const permissions = this.permissions$.value;
-		const foundPermission: Permission<P> | undefined = permissions.find(
+		const foundPermission: Permission<K> | undefined = permissions.find(
 			(item) => item.scope === scope,
 		);
 		if (foundPermission) {
@@ -77,7 +76,7 @@ export class AccountPermissionsService<
 			hasRead: false,
 			hasUpdate: false,
 			hasDelete: false,
-		} as Permission<P>['grants'];
+		} as Permission<K>['grants'];
 	}
 
 	clear() {
@@ -93,11 +92,11 @@ export class AccountPermissionsService<
  *          permissionOnly(hasAny('dashboard')),
  *          permissionExpect(hasAny('dashboard')),
  *          permissionAny(
- *              hasAccess('dashboard),
+ *              permissionValidators('dashboard),
  *              hasRead('dashboard'),
  *          )
  *          permissionEvery(
- *              hasAccess('dashboard'),
+ *              permissionValidators('dashboard'),
  *              hasRead(['user', 'books')
  *          ),
  *      ]

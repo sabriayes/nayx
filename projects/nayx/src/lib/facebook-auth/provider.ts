@@ -13,7 +13,7 @@ import {
 } from '@nayx/facebook-auth/options';
 import { FacebookAuthenticationService } from '@nayx/facebook-auth/facebook-auth.service';
 
-export const provideNaxyFacebookAuth = (
+export const provideNayxFacebookAuth = (
 	options?: Partial<FacebookAuthServiceOptions>,
 ) =>
 	makeEnvironmentProviders([
