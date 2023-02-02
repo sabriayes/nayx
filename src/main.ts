@@ -10,8 +10,8 @@ import { authInterceptor } from '@nayx/auth-interceptor';
 import { provideRouter } from '@angular/router';
 import { ROUTES } from './routes';
 import { AuthServiceOptions } from '@nayx/core/models';
-import { provideNaxyGoogleAuth } from '@nayx/google-auth';
-import { provideNaxyFacebookAuth } from '@nayx/facebook-auth';
+import { provideNayxGoogleAuth } from '@nayx/google-auth';
+import { provideNayxFacebookAuth } from '@nayx/facebook-auth';
 
 const AUTH_OPTIONS: AuthServiceOptions = {
 	retryLimit: 1,
@@ -44,7 +44,7 @@ bootstrapApplication(AppComponent, {
 			},
 		},
 		provideNayxLocalAuth(AUTH_OPTIONS),
-		provideNaxyGoogleAuth({
+		provideNayxGoogleAuth({
 			...AUTH_OPTIONS,
 			id: '898348565692-bm1hgvrjcovmc7lnja8jdb4c9vced99m.apps.googleusercontent.com',
 			scopes: ['email', 'profile'],
@@ -53,7 +53,7 @@ bootstrapApplication(AppComponent, {
 				[AuthEndpoint.SIGN_IN]: 'auth/google',
 			},
 		}),
-		provideNaxyFacebookAuth({
+		provideNayxFacebookAuth({
 			...AUTH_OPTIONS,
 			id: '722905828672583',
 			scopes: ['email'],

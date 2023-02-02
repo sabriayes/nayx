@@ -13,7 +13,7 @@ import {
 } from '@nayx/google-auth/options';
 import { GoogleAuthenticationService } from '@nayx/google-auth/google-auth.service';
 
-export const provideNaxyGoogleAuth = (
+export const provideNayxGoogleAuth = (
 	options?: Partial<GoogleAuthServiceOptions>,
 ) =>
 	makeEnvironmentProviders([

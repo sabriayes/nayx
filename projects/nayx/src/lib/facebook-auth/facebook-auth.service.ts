@@ -15,7 +15,7 @@ import {
 
 import StatusResponse = facebook.StatusResponse;
 
-const PROVIDER_ID = 'NAXYFACEBOOK';
+const PROVIDER_ID = 'NAYXFACEBOOK';
 const API_URL = 'https://connect.facebook.net/%LOCALE%/sdk.js';
 
 @Injectable()

@@ -9,7 +9,7 @@ import {
 } from '@nayx/permissions/options';
 import { AccountPermissionsService } from '@nayx/permissions/permissions.service';
 
-export const provideNaxyPermission = (
+export const provideNayxPermission = (
 	options?: Partial<PermissionsServiceOptions>,
 ) =>
 	makeEnvironmentProviders([

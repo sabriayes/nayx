@@ -14,7 +14,7 @@ import {
 } from './options';
 import CredentialResponse = google.accounts.id.CredentialResponse;
 
-const PROVIDER_ID = 'NAXYGOOGLE';
+const PROVIDER_ID = 'NAYXGOOGLE';
 const API_URL = 'https://accounts.google.com/gsi/client';
 
 @Injectable()

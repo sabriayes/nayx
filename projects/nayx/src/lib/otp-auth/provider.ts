@@ -13,7 +13,7 @@ import {
 } from '@nayx/otp-auth/options';
 import { OTPAuthenticationService } from '@nayx/otp-auth/otp-auth.service';
 
-export const provideNaxyOTPAuth = (options?: Partial<OTPAuthServiceOptions>) =>
+export const provideNayxOTPAuth = (options?: Partial<OTPAuthServiceOptions>) =>
 	makeEnvironmentProviders([
 		{
 			provide: OTP_AUTH_SERVICE_OPTIONS,
