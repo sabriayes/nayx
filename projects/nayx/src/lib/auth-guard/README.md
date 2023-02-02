@@ -30,7 +30,7 @@ bootstrapApplication(AppComponent, {
 /**
  *  @file routes.ts
  *  
- *  authGuard<T>(to: unknown[], validatorFunc: AccountValidatorFunc: T): Observable<true>;
+ *  authGuard<T>(to: unknown[], validatorFunc?: AccountValidatorFunc: T): Observable<true>;
  *  @params to - Yönlendirme yapılacak UrlTree
  *  @params validatorFunc - Oturum açmış olan kullanıcı bilgisini bu fonksiyon 
  *                          ile doğrulayın

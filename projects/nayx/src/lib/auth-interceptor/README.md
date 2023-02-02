@@ -4,8 +4,8 @@ HTTP isteklerinin başlık içeriğinde oturum jetonlarını göndermek için
 bu fonksyionu kullanın. `TokensService` bağımlılığını kullanarak oturum 
 jetonlarına erişir.
 
-`AtuhToken.ACCESS_TOKEN` bilgisini çağrı başlığınına 
-`Authorizarion: 'Bearer [ACCESS_TOKEN]'` **Bearer** stratejiye uygun biçimde 
+`AuthToken.ACCESS_TOKEN` bilgisini çağrı başlığınına 
+`Authorization: 'Bearer [ACCESS_TOKEN]'` **Bearer** stratejiye uygun biçimde 
 ekler.
 
 **ACCESS_TOKEN** bilgisine erişememiş ise çağrı başlığnı değştirmez.
@@ -13,10 +13,10 @@ ekler.
 ```ts
 /** @file main.ts 
  * 
- * Gönderilen HTTP isteğinin Herader bilgisi.
+ * Gönderilen HTTP isteğinin Header bilgisi.
  * {
  *      'Content-Type': 'application/json',
- *      'Authorizarion: 'Bearer ...',
+ *      'Authorization: 'Bearer ...',
  * }
  */
 
