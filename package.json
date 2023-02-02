@@ -1,7 +1,7 @@
 {
 	"name": "@sabriayes/ng-libs",
 	"description": "Some useful libraries needed by Naylalabs team to develop Angular app",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"license": "MIT",
 	"private": false,
 	"author": {
