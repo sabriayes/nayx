@@ -5,7 +5,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from '@app/app.component';
 import { AuthEndpoint, AuthToken } from '@nayx/core/enums';
 import { AUTH_TOKENS_SERVICE_OPTIONS } from '@nayx/auth-tokens';
-import { provideNaxyLocalAuth } from '@nayx/local-auth';
+import { provideNayxLocalAuth } from '@nayx/local-auth';
 import { authInterceptor } from '@nayx/auth-interceptor';
 import { provideRouter } from '@angular/router';
 import { ROUTES } from './routes';
@@ -43,7 +43,7 @@ bootstrapApplication(AppComponent, {
 				},
 			},
 		},
-		provideNaxyLocalAuth(AUTH_OPTIONS),
+		provideNayxLocalAuth(AUTH_OPTIONS),
 		provideNaxyGoogleAuth({
 			...AUTH_OPTIONS,
 			id: '898348565692-bm1hgvrjcovmc7lnja8jdb4c9vced99m.apps.googleusercontent.com',
