@@ -34,7 +34,9 @@
 							"src/sitemap.xml",
 							"src/manifest.webmanifest"
 						],
-						"styles": [],
+						"styles": [
+							"src/assets/scss/default.scss"
+						],
 						"scripts": []
 					},
 					"configurations": {
