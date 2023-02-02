@@ -86,7 +86,6 @@ export class AccountPermissionsService<
 }
 
 /**
- *
  *  [
  *      path: 'dashboard',
  *      component: DashboardPageComponent,
