@@ -407,8 +407,7 @@ export class SomePageComponent implements OnInit {
 }
 ```
 
-
-## ❌ Permission Service
+## ❌ Permission Service & Guards
 
 📦 `provideNayxPermissions`\
 👻 `PermissionsService`\
@@ -470,9 +469,9 @@ import { permissionEveryGuard } from './permission-every.guard';
 import { hasAccess, hasCreate } from './permission-validators';
 
 /**
- * permissionEveryGuard - Tüm yetki kontollerinin olumlu sonuç dönmesini bekler
- * permissionAnyGuard - En az bir yetki kontolünün olumlu sonuç dönmesini bekler
- * permissionExceptGuard - Tüm yetki kontollerinin olumsuz sonuç dönmesini bekler
+ * permissionEveryGuard - Tüm yetki kontrollerinin olumlu sonuç dönmesini bekler
+ * permissionAnyGuard - En az bir yetki kontrolünün olumlu sonuç dönmesini bekler
+ * permissionExceptGuard - Tüm yetki kontrollerinin olumsuz sonuç dönmesini bekler
  */
 
 const ROUTES = [
