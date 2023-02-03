@@ -12,6 +12,7 @@ import { ROUTES } from './routes';
 import { AuthServiceOptions } from '@nayx/core/models';
 import { provideNayxGoogleAuth } from '@nayx/google-auth';
 import { provideNayxFacebookAuth } from '@nayx/facebook-auth';
+import { provideNayxPermission } from '@nayx/permissions/provider';
 
 const AUTH_OPTIONS: AuthServiceOptions = {
 	retryLimit: 1,
@@ -43,6 +44,9 @@ bootstrapApplication(AppComponent, {
 				},
 			},
 		},
+		provideNayxPermission({
+			apiURL: 'https://api.backend.com/api/permissions',
+		}),
 		provideNayxLocalAuth(AUTH_OPTIONS),
 		provideNayxGoogleAuth({
 			...AUTH_OPTIONS,

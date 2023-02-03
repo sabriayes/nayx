@@ -6,4 +6,8 @@ export const ROUTES: Route[] = [
 		path: 'auth',
 		component: SignInPageComponent,
 	},
+	{
+		path: 'no-grant',
+		component: SignInPageComponent,
+	},
 ];

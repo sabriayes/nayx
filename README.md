@@ -467,14 +467,14 @@ istenilen rotaya yönlendirme yapar.
 const ROUTES = [
     {
         path: 'dashaboard',
-        conmponent: DashboardPageComponent,
+        component: DashboardPageComponent,
         canActivate: [
             authGuard(['/401'])
         ]
     },
     {
         path: 'required-some-props',
-        conmponent: DashboardPageComponent,
+        component: DashboardPageComponent,
         canActivate: [
             // Oturum onaylansa bile {hasAddress} anahtarı 
             // true olmak zorunda.
