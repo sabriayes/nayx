@@ -7,6 +7,7 @@ export const ACCOUNT_PERMISSIONS_SERVICE_DEFAULT_OPTIONS: AccountPermissionServi
 	{
 		retryLimit: 1,
 		apiURL: 'http://localhost',
+		redirectTo: [''],
 	};
 
 export const ACCOUNT_PERMISSIONS_SERVICE_OPTIONS: InjectionToken<AccountPermissionServiceOptions> =

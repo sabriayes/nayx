@@ -1,11 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PermissionsServiceOptions } from '@nayx/core/models';
 
-export type GrantValidatorFuncReturnType<T extends string = never> = (
-	perm: Permission<T>,
-) => boolean;
-
-export type StringIfNever<T> = T extends never ? string : T;
+export type GrantValidatorFuncReturnType = (perm: Permission<any>) => boolean;
 
 export type GrantType =
 	| 'hasAccess'
@@ -15,18 +11,18 @@ export type GrantType =
 	| 'hasDelete';
 
 export type PermissionGrants = Partial<Record<GrantType, boolean>>;
-export type Permission<T extends string = never> = {
-	scope: StringIfNever<T>;
+export type Permission<T = string> = {
+	scope: T;
 	grants: PermissionGrants;
 };
 
-export abstract class PermissionsService<K extends string = never> {
+export abstract class PermissionsService<T = string> {
 	abstract options: PermissionsServiceOptions;
-	abstract permissions$: BehaviorSubject<Permission<K>[]>;
-	abstract import(permissions: Permission<K>[]): void;
-	abstract importLazy(): Observable<Permission<K>[]>;
-	abstract add(permission: Permission<K>): void;
-	abstract remove(scopes: K[]): void;
+	abstract permissions$: BehaviorSubject<Permission<T>[]>;
+	abstract import(permissions: Permission<T>[]): void;
+	abstract importLazy(): Observable<Permission<T>[]>;
+	abstract add(permission: Permission<T>): void;
+	abstract remove(scopes: T[]): void;
 	abstract clear(): void;
-	abstract check(scope: K): Permission<K>['grants'];
+	abstract check(scope: T): Permission<T>['grants'];
 }

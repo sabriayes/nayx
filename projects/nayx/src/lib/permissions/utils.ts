@@ -1,22 +1,19 @@
-import {
-	GrantValidatorFuncReturnType,
-	Permission,
-	StringIfNever,
-} from '@nayx/core/abstracts';
-import { iif, Observable, of } from 'rxjs';
+import { GrantValidatorFuncReturnType, Permission } from '@nayx/core/abstracts';
+import { defer, iif, Observable, of } from 'rxjs';
 
-export const isArgumentString = (argument: unknown): boolean =>
-	typeof argument === 'string';
+export const isArgumentString = (argument: unknown): boolean => {
+	return typeof argument === 'string';
+};
 
-export const validateWithFunc = <T extends string = never>(
-	permissions: Permission<T>[],
-	args: GrantValidatorFuncReturnType<T>[],
+export const validateWithFunc = (
+	permissions: Permission[],
+	args: GrantValidatorFuncReturnType[],
 ): Observable<boolean[]> =>
 	of(args.map((fn) => permissions.some((perm) => fn(perm))));
 
-export const validateWithScopeName = <T extends string = never>(
-	permissions: Permission<T>[],
-	args: StringIfNever<T>[],
+export const validateWithScopeName = (
+	permissions: Permission[],
+	args: string[],
 ): Observable<boolean[]> =>
 	of(
 		args.map((argument) =>
@@ -26,15 +23,17 @@ export const validateWithScopeName = <T extends string = never>(
 		),
 	);
 
-export const runValidators = <T extends string = never>(
-	permissions: Permission<T>[],
+export const runValidators = (
+	permissions: Permission[],
 	args: unknown[],
 ): Observable<boolean[]> =>
 	iif(
 		() => !isArgumentString(args[0]),
-		validateWithFunc(
-			permissions,
-			args as GrantValidatorFuncReturnType<T>[],
+		defer(() =>
+			validateWithFunc(
+				permissions,
+				args as GrantValidatorFuncReturnType[],
+			),
 		),
-		validateWithScopeName(permissions, args as StringIfNever<T>[]),
+		defer(() => validateWithScopeName(permissions, args as string[])),
 	);

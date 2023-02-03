@@ -1,27 +1,44 @@
-import { GrantType, Permission, StringIfNever } from '@nayx/core/abstracts';
+import {
+	GrantType,
+	GrantValidatorFuncReturnType,
+	Permission,
+} from '@nayx/core/abstracts';
 
-const validate = <T extends string = never>(
-	perms: Permission<T>,
-	scope: StringIfNever<T>,
-	grantType: GrantType,
-) => perms.scope === scope && !!perms.grants[grantType];
+const grantProps: GrantType[] = [
+	'hasAccess',
+	'hasCreate',
+	'hasRead',
+	'hasUpdate',
+	'hasDelete',
+];
 
-export function hasAccess<T extends string = never>(scope: StringIfNever<T>) {
-	return (perms: Permission<T>) => validate<T>(perms, scope, 'hasAccess');
+export function hasAll<T = string>(scope: T): GrantValidatorFuncReturnType {
+	return (perms: Permission<T>) =>
+		perms.scope === scope &&
+		grantProps.map((prop) => perms.grants[prop]).every(Boolean);
 }
 
-export function hasCreate<T extends string = never>(scope: StringIfNever<T>) {
-	return (perms: Permission<T>) => validate<T>(perms, scope, 'hasCreate');
+export function hasAccess<T = string>(scope: T): GrantValidatorFuncReturnType {
+	return (perms: Permission<T>) =>
+		perms.scope === scope && !!perms.grants.hasAccess;
 }
 
-export function hasRead<T extends string = never>(scope: StringIfNever<T>) {
-	return (perms: Permission<T>) => validate<T>(perms, scope, 'hasRead');
+export function hasCreate<T = string>(scope: T): GrantValidatorFuncReturnType {
+	return (perms: Permission<T>) =>
+		perms.scope === scope && !!perms.grants.hasCreate;
 }
 
-export function hasUpdate<T extends string = never>(scope: StringIfNever<T>) {
-	return (perms: Permission<T>) => validate<T>(perms, scope, 'hasUpdate');
+export function hasRead<T = string>(scope: T): GrantValidatorFuncReturnType {
+	return (perms: Permission<T>) =>
+		perms.scope === scope && !!perms.grants.hasRead;
 }
 
-export function hasDelete<T extends string = never>(scope: StringIfNever<T>) {
-	return (perms: Permission<T>) => validate<T>(perms, scope, 'hasDelete');
+export function hasUpdate<T = string>(scope: T): GrantValidatorFuncReturnType {
+	return (perms: Permission<T>) =>
+		perms.scope === scope && !!perms.grants.hasUpdate;
+}
+
+export function hasDelete<T = string>(scope: T): GrantValidatorFuncReturnType {
+	return (perms: Permission<T>) =>
+		perms.scope === scope && !!perms.grants.hasDelete;
 }
