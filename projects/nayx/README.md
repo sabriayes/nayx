@@ -105,6 +105,15 @@ InMemory yöntemi ile veri depolamak için bu servisi kullanın.
 `StorageService` soyut sınıfını kullanarak özelleştirilmiş depolama servisleri
 kullanabilirsiniz.
 
+## ❌ Permission Service & Guards
+
+📦 `provideNayxPermissions`\
+👻 `PermissionsService`\
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/permissions/README.md)
+
+Rota erişimlerine yetkilendirme tabanlı kısıtlama getirmek için bu serivisi ve
+`Guard` fonksiyonlarını kullanın.
+
 ## 🌏 Window Injection Token
 
 👻 `Window`\
