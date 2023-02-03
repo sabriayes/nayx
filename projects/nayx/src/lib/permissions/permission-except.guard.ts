@@ -1,26 +1,34 @@
-import { iif, map, Observable, of, switchMap } from 'rxjs';
+import { iif, map, of, switchMap } from 'rxjs';
 import {
 	Permission,
 	PermissionsService,
-	StringIfNever,
 	GrantValidatorFuncReturnType,
 } from '@nayx/core/abstracts';
 import { inject } from '@angular/core';
 import { runValidators } from '@nayx/permissions/utils';
+import { CanActivateChildFn, CanActivateFn, Router } from '@angular/router';
 
-export function permissionExpectGuard<T extends string = never>(
-	...args: GrantValidatorFuncReturnType<T>[] | StringIfNever<T>[]
-): Observable<boolean> {
-	const permissionService = inject<PermissionsService<T>>(PermissionsService);
+export function permissionExpectGuard(
+	...args: GrantValidatorFuncReturnType[] | string[]
+): CanActivateFn | CanActivateChildFn {
+	return function () {
+		const router = inject(Router);
+		const permissionService =
+			inject<PermissionsService>(PermissionsService);
 
-	return iif(
-		() => !args.length,
-		of(false),
-		permissionService.permissions$.pipe(
-			switchMap((permissions: Permission<T>[]) =>
-				runValidators(permissions, args),
+		const redirectTo = router.createUrlTree(
+			permissionService.options.redirectTo,
+		);
+
+		return iif(
+			() => !args.length,
+			of(redirectTo),
+			permissionService.permissions$.pipe(
+				switchMap((permissions: Permission[]) =>
+					runValidators(permissions, args),
+				),
+				map((arr: boolean[]) => arr.some((res) => !res) || redirectTo),
 			),
-			map((arr: boolean[]) => arr.some((res) => !res)),
-		),
-	);
+		);
+	};
 }

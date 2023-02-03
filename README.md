@@ -34,7 +34,7 @@ aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServic
  * Konfügurasyon ve jeton saklamak için gereken bağımlıklar
  * modül içerisinde mevcuttur.
  */
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideNayxLocalAuth, authInterceptor } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {
@@ -50,14 +50,14 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import { Component, inject } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import {
     LocalAuthService, 
     BasicAuthResponse, 
     CredentialsWithEmail
 } 
-from "@sabriayes/nayx";
+from '@sabriayes/nayx';
 
 type User = Record<'firstName' | 'lastName', string>;
 type SignInResponse = BasicAuthResponse;
@@ -103,7 +103,7 @@ aktarmanızı sağlar. Konfigürsayon tipi için bkz. `OTPAuthenticationServiceO
  * Konfügurasyon ve jeton saklamak için gereken bağımlıklar 
  * modül içerisinde mevcuttur.
  */
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideNayxLocalAuth, authInterceptor } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {
@@ -119,14 +119,14 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import { Component, inject } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import {
     OTPAuthService, 
     BasicAuthResponse,
     OTPCredentialsWithEmail
 } 
-from "@sabriayes/nayx";
+from '@sabriayes/nayx';
 
 type User = Record<'firstName' | 'lastName', string>;
 type SignInResponse = OTPAuthResponse;
@@ -206,9 +206,9 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import { Component, inject, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { GoogleAuthService } from "@sabriayes/nayx";
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GoogleAuthService } from '@sabriayes/nayx';
 import { filter } from 'rxjs';
 
 @Component({
@@ -258,9 +258,9 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import { Component, inject, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { FacebookAuthService } from "@sabriayes/nayx";
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FacebookAuthService } from '@sabriayes/nayx';
 import { filter } from 'rxjs';
 
 @Component({})
@@ -317,8 +317,8 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import { Component, inject } from "@angular/core";
-import { TokensService } from "@sabriayes/nayx";
+import { Component, inject } from '@angular/core';
+import { TokensService } from '@sabriayes/nayx';
 
 @Component({})
 export class SomePageComponent implements OnInit {
@@ -356,8 +356,8 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import { Component, inject } from "@angular/core";
-import { StorageService } from "@sabriayes/nayx";
+import { Component, inject } from '@angular/core';
+import { StorageService } from '@sabriayes/nayx';
 
 @Component({})
 export class SomePageComponent implements OnInit {
@@ -394,8 +394,8 @@ bootstrapApplication(AppComponent, {
 ### Temel Kullanım
 
 ```ts
-import { Component, inject } from "@angular/core";
-import { StorageService } from "@sabriayes/nayx";
+import { Component, inject } from '@angular/core';
+import { StorageService } from '@sabriayes/nayx';
 
 @Component({})
 export class SomePageComponent implements OnInit {
@@ -405,6 +405,107 @@ export class SomePageComponent implements OnInit {
         const username: string = this.storageServie.get('username');
     }
 }
+```
+
+
+## ❌ Permission Service
+
+📦 `provideNayxPermissions`\
+👻 `PermissionsService`\
+📒 [Servis Dokümanı](https://github.com/sabriayes/nayx/tree/main/projects/nayx/src/lib/permissions/README.md)
+
+Rota erişimlerine yetkilendirme tabanlı kısıtlama getirmek için bu serivisi ve 
+`Guard` fonksiyonlarını kullanın.
+
+### Entegrasyon
+
+```ts
+import { APP_INITIALIZER, inject } from '@angular/core';
+import { provideNayxPermissions } from '@sabriayes/nayx';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        provideNayxPermissions({
+            redirectTo: ['/access-denied'],
+        }),
+        {
+            provide: APP_INITIALIZER,
+            useFactory: () => {
+                const permissionsService = inject(PermissionsService);
+                return () =>
+                    /**
+                     *  .importLazy() - Yetkileri uzak sunucudan yükler
+                     *  .import([]] - Yetkileri manuel yükler
+                     */
+                    permissionsService.import([
+                        {
+                            scope: 'accounts',
+                            grants: { hasAccess: true, hasRead: true },
+                        },
+                        {
+                            scope: 'reports',
+                            grants: { hasAccess: true, hasRead: true },
+                        },
+                        {
+                            scope: 'subscriptions',
+                            grants: { 
+                                hasAccess: true,
+                                hasCreate: true,
+                                hasRead: true,
+                            },
+                        },
+                    ]);
+            },
+            multi: true,
+            deps: [PermissionsService],
+        },
+    ]
+});
+```
+
+### Temel Kullanım
+
+```ts
+import { permissionEveryGuard } from './permission-every.guard';
+import { hasAccess, hasCreate } from './permission-validators';
+
+/**
+ * permissionEveryGuard - Tüm yetki kontollerinin olumlu sonuç dönmesini bekler
+ * permissionAnyGuard - En az bir yetki kontolünün olumlu sonuç dönmesini bekler
+ * permissionExceptGuard - Tüm yetki kontollerinin olumsuz sonuç dönmesini bekler
+ */
+
+const ROUTES = [
+    {
+        path: 'account-management',
+        component: AccountManagementPageComponent,
+        canActivate: [
+            // Accounts ve Subscriptions alanlarınnda erişim yetkisi varsa.
+            permissionEveryGuard('accounts', 'subscriptions')
+        ]
+    },
+    {
+        path: 'subscriptions',
+        component: SubscriptionPageComponent,
+        canActivate: [
+            // Reports ve Subscriptions alanlarının herhangi birinde erişim 
+            // yetkisi varsa.
+            permissionAnyGuard('reports', 'subscriptions')
+        ]
+    },
+    {
+        path: 'subscriptions',
+        component: SubscriptionPageComponent,
+        canActivate: [
+            // Reports oluşturma ve Subscriptions okuma işlemleri 
+            // için yetki varsa.
+            permissionAnyGuard(
+                hasRead('subscriptions'),
+                hasCreate('reports')
+            )
+        ]
+    }
+]
 ```
 
 ## 🌏 Window Injection Token
@@ -418,8 +519,8 @@ Tarayıcının `window` nesnesine erişmek için **WINDOW** jetonunu kullanın.
 ### Temel Kullanım
 
 ```ts
-import { Component, inject } from "@angular/core";
-import { WINDOW } from "@sabriayes/nayx";
+import { Component, inject } from '@angular/core';
+import { WINDOW } from '@sabriayes/nayx';
 
 @Component({})
 export class SomePageComponent {
@@ -442,8 +543,8 @@ Tarayıcının `localStorage`nesnesine erişmek için bu jetonu kullanın.
 ### Temel Kullanım
 
 ```ts
-import { Component, inject } from "@angular/core";
-import { LOCAL_STORAGE } from "@sabriayes/nayx";
+import { Component, inject } from '@angular/core';
+import { LOCAL_STORAGE } from '@sabriayes/nayx';
 
 @Component({})
 export class SomePageComponent {
@@ -467,14 +568,14 @@ istenilen rotaya yönlendirme yapar.
 const ROUTES = [
     {
         path: 'dashaboard',
-        conmponent: DashboardPageComponent,
+        component: DashboardPageComponent,
         canActivate: [
             authGuard(['/401'])
         ]
     },
     {
         path: 'required-some-props',
-        conmponent: DashboardPageComponent,
+        component: DashboardPageComponent,
         canActivate: [
             // Oturum onaylansa bile {hasAddress} anahtarı 
             // true olmak zorunda.
@@ -498,8 +599,8 @@ olarak false olarak kullanılır.
 https://angular.io/api/common/http/HttpContext
 
 ```ts
-import { importProvidersFrom } from "@angular/core";
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { importProvidersFrom } from '@angular/core';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from '@sabriayes/nayx';
 
 bootstrapApplication(AppComponent, {

@@ -14,25 +14,23 @@ import {
 	AccountPermissionServiceOptions,
 } from '@nayx/permissions/options';
 
-export class AccountPermissionsService<
-	K extends string = never,
-> extends AccountPermissionService<K> {
+export class AccountPermissionsService<T> extends AccountPermissionService<T> {
 	public http = inject(HttpClient);
-	public permissions$ = new BehaviorSubject<Permission<K>[]>([]);
+	public permissions$ = new BehaviorSubject<Permission<T>[]>([]);
 	public options = inject<AccountPermissionServiceOptions>(
 		ACCOUNT_PERMISSIONS_SERVICE_OPTIONS,
 	);
 
-	import(permissions: Permission<K>[]): void {
+	import(permissions: Permission<T>[]): void {
 		this.permissions$.next(permissions);
 	}
 
-	importLazy(): Observable<Permission<K>[]> {
+	importLazy(): Observable<Permission<T>[]> {
 		const { retryLimit } = this.options;
 
-		return this.http.get<Permission<K>[]>(this.options.apiURL).pipe(
+		return this.http.get<Permission<T>[]>(this.options.apiURL).pipe(
 			retry(retryLimit),
-			tap((permissions: Permission<K>[]) =>
+			tap((permissions: Permission<T>[]) =>
 				this.permissions$.next(permissions),
 			),
 			catchError((err) => {
@@ -42,16 +40,16 @@ export class AccountPermissionsService<
 		);
 	}
 
-	remove(scopes: K[]): void {
+	remove(scopes: T[]): void {
 		const permissions = this.permissions$.value;
 		this.permissions$.next(
-			permissions.filter((item) => !scopes.includes(item.scope as K)),
+			permissions.filter((item) => !scopes.includes(item.scope)),
 		);
 	}
 
-	add(newPermission: Permission<K>): void {
+	add(newPermission: Permission<T>): void {
 		const permissions = this.permissions$.value;
-		const foundSameItem: Permission<K> | undefined = permissions.find(
+		const foundSameItem: Permission<T> | undefined = permissions.find(
 			(item) => item.scope === newPermission.scope,
 		);
 		if (!foundSameItem) {
@@ -62,9 +60,9 @@ export class AccountPermissionsService<
 		this.permissions$.next([...permissions]);
 	}
 
-	check(scope: K): Permission<K>['grants'] {
+	check(scope: T): Permission<T>['grants'] {
 		const permissions = this.permissions$.value;
-		const foundPermission: Permission<K> | undefined = permissions.find(
+		const foundPermission: Permission<T> | undefined = permissions.find(
 			(item) => item.scope === scope,
 		);
 		if (foundPermission) {
@@ -76,7 +74,7 @@ export class AccountPermissionsService<
 			hasRead: false,
 			hasUpdate: false,
 			hasDelete: false,
-		} as Permission<K>['grants'];
+		} as Permission<T>['grants'];
 	}
 
 	clear() {

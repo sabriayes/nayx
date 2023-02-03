@@ -38,7 +38,7 @@ bootstrapApplication(AppComponent, {
 const ROUTES = [
     {
         path: 'dashaboard',
-        conmponent: DashboardPageComponent,
+        component: DashboardPageComponent,
         canActivate: [
             // Oturum başarısız ise 401 sayfasına yönlendirir
             authGuard(['/401'])
@@ -46,7 +46,7 @@ const ROUTES = [
     },
     {
         path: 'required-some-props',
-        conmponent: DashboardPageComponent,
+        component: DashboardPageComponent,
         canActivate: [
             // Oturum onaylansa bile {hasAddress} anahtarı 
             // true olmak zorunda

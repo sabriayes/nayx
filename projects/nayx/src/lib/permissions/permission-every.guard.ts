@@ -8,7 +8,7 @@ import { inject } from '@angular/core';
 import { runValidators } from '@nayx/permissions/utils';
 import { CanActivateChildFn, CanActivateFn, Router } from '@angular/router';
 
-export function permissionAnyGuard(
+export function permissionEveryGuard(
 	...args: GrantValidatorFuncReturnType[] | string[]
 ): CanActivateFn | CanActivateChildFn {
 	return function () {
@@ -27,7 +27,7 @@ export function permissionAnyGuard(
 				switchMap((permissions: Permission[]) =>
 					runValidators(permissions, args),
 				),
-				map((arr: boolean[]) => arr.some(Boolean) || redirectTo),
+				map((arr: boolean[]) => arr.every(Boolean) || redirectTo),
 			),
 		);
 	};

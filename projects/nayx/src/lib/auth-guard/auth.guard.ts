@@ -1,9 +1,13 @@
-import { Router, UrlTree } from '@angular/router';
+import {
+	CanActivateChildFn,
+	CanActivateFn,
+	Router,
+	UrlTree,
+} from '@angular/router';
 import { inject } from '@angular/core';
 import { LocalAuthService, TokensService, AuthToken } from '@nayx/core/index';
-import { catchError, iif, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, iif, map, of, switchMap } from 'rxjs';
 
-type AuthGuardReturnType = () => Observable<boolean | UrlTree>;
 type AccountValidatorFunc = <T>(account?: T) => boolean;
 
 /**
@@ -36,7 +40,7 @@ type AccountValidatorFunc = <T>(account?: T) => boolean;
 export function authGuard<T>(
 	to: unknown[],
 	validatorFunc: AccountValidatorFunc = () => true,
-): AuthGuardReturnType {
+): CanActivateFn | CanActivateChildFn {
 	return function () {
 		const router = inject(Router);
 		const accessToken = inject(TokensService).get(AuthToken.ACCESS_TOKEN);

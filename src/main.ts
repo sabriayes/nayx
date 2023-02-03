@@ -12,10 +12,13 @@ import { ROUTES } from './routes';
 import { AuthServiceOptions } from '@nayx/core/models';
 import { provideNayxGoogleAuth } from '@nayx/google-auth';
 import { provideNayxFacebookAuth } from '@nayx/facebook-auth';
+import { provideNayxPermissions } from '@nayx/permissions';
+import { APP_INITIALIZER, inject } from '@angular/core';
+import { PermissionsService } from '@nayx/core/abstracts';
 
 const AUTH_OPTIONS: AuthServiceOptions = {
 	retryLimit: 1,
-	baseURL: 'https://dev-api-sales-sense-backend.naylalabs.xyz',
+	baseURL: 'https://api.backend.com',
 	endpoints: {
 		[AuthEndpoint.SIGN_IN]: 'auth',
 		[AuthEndpoint.SIGN_OUT]: 'auth',
@@ -43,10 +46,13 @@ bootstrapApplication(AppComponent, {
 				},
 			},
 		},
+		provideNayxPermissions({
+			redirectTo: ['/access-denied'],
+		}),
 		provideNayxLocalAuth(AUTH_OPTIONS),
 		provideNayxGoogleAuth({
 			...AUTH_OPTIONS,
-			id: '898348565692-bm1hgvrjcovmc7lnja8jdb4c9vced99m.apps.googleusercontent.com',
+			id: 'GOOGLE_CLIENT_ID',
 			scopes: ['email', 'profile'],
 			endpoints: {
 				...AUTH_OPTIONS.endpoints,
@@ -55,8 +61,23 @@ bootstrapApplication(AppComponent, {
 		}),
 		provideNayxFacebookAuth({
 			...AUTH_OPTIONS,
-			id: '722905828672583',
+			id: 'FACEBOOK_APP_Id',
 			scopes: ['email'],
 		}),
+		{
+			provide: APP_INITIALIZER,
+			useFactory: () => {
+				const service = inject(PermissionsService);
+				return () =>
+					service.import([
+						{
+							scope: 'dashboard',
+							grants: { hasAccess: true, hasRead: true },
+						},
+					]);
+			},
+			multi: true,
+			deps: [PermissionsService],
+		},
 	],
 });
