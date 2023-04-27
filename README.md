@@ -31,7 +31,7 @@ aktarmanızı sağlar. Konfigürsayon tipi için bkz. `LocalAuthenticationServic
 ```ts
 /**
  * Temel entegrasyon örneği.
- * Konfügurasyon ve jeton saklamak için gereken bağımlıklar
+ * Konfigürasyon ve jeton saklamak için gereken bağımlıklar
  * modül içerisinde mevcuttur.
  */
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -100,7 +100,7 @@ aktarmanızı sağlar. Konfigürsayon tipi için bkz. `OTPAuthenticationServiceO
 ```ts
 /**
  * Temel entegrasyon örneği. 
- * Konfügurasyon ve jeton saklamak için gereken bağımlıklar 
+ * Konfigürasyon ve jeton saklamak için gereken bağımlıklar 
  * modül içerisinde mevcuttur.
  */
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
